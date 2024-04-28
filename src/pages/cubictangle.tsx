@@ -1,30 +1,30 @@
 import React from "react";
 
-const KittyKaboom = () => {
+const CubicTangle = () => {
     return (
         <div id="content-column" className="view">
             <div className={"content-inner"}>
                 <div className="home">
                     <div className="background">
-                        <img src={"/images/kitty-images/gamebanner.png"} alt={"game banner"}></img>
+                        <img src={"/images/cube-tangle/gamebanner.png"} alt={"game banner"}></img>
                     </div>
-                    <h6 className={"title"}>Kitty Kaboom</h6>
-                    <div className={"description"}>Boom!</div>
+                    <h6 className={"title"}>Cubic Tangle</h6>
+                    <div className={"description"}>Tangled!</div>
                 </div>
                 <div className="standard">
                     <div className="tab-container">
                         <h6 className="title">Game Details</h6>
                         <div className="total"><p >Game Genre</p>
-                            <span >Racing</span>
+                            <span >Puzzle</span>
                         </div>
-                        <div className="check-container"><h6 >Zooming Kitties!</h6>
+                        <div className="check-container">
                             <div className="row details">
                                 <div className="column-6">
                                     <ul >
                                         <li >
-                                            <img src="/icons/arcade.png" width={32} height={32}></img>
+                                            <img src="/icons/puzzle.png" width={32} height={32}></img>
                                             <p>
-                                                Arcade
+                                                Puzzle
                                             </p>
                                         </li>
                                     </ul>
@@ -32,9 +32,9 @@ const KittyKaboom = () => {
                                 <div className="column-6">
                                     <ul >
                                         <li >
-                                            <img src="/icons/splitscreen.png" width={32} height={32} ></img>
+                                            <img src="/icons/achievement.png" width={32} height={32} ></img>
                                             <p>
-                                                Splitscreen
+                                                Achievements
                                             </p>
                                         </li>
                                     </ul>
@@ -46,7 +46,7 @@ const KittyKaboom = () => {
 
                 <div className="game-detail">
 
-                    <img src="images/kitty-images/kitty1.png" width={400} height={300}></img>
+                    <img src="images/cube-tangle/cubic1.png" width={400} height={300}></img>
 
                     <div className="info">
                         <div className="title">Speedy Paws: Racing Revolution with a Feline Twist!</div>
@@ -65,25 +65,21 @@ const KittyKaboom = () => {
                             But Speedy Paws isn't just about flashy cars—it's about the thrill of the chase and the rush of victory. As you rev your engines and tear through each hairpin turn, you'll feel the adrenaline coursing through your veins as you vie for the top spot on the leaderboard. And with the added incentive of web3 rewards waiting at the finish line, every race becomes an exhilarating opportunity to earn exclusive prizes and establish your dominance in the Speedy Paws universe. So why settle for ordinary racing games when you can join the purr-fectly thrilling world of Speedy Paws and experience the ultimate fusion of gaming excitement and web3 innovation?
                         </p>
                     </div>
-                    <img src="images/kitty-images/kitty2.png" width={400} height={300}></img>
+                    <img src="images/cube-tangle/cubic2.png" width={400} height={300}></img>
                 </div>
 
                 <div className="screenshots">
                     <div className="info">
-                        <img className="" src="images/kitty-images/ss1.png"></img>
+                        <img className="" src="images/cube-tangle/ss1.png"></img>
 
                     </div>
                     <div className="info">
-                        <img className="" src="images/kitty-images/ss2.png"></img>
+                        <img className="" src="images/cube-tangle/ss2.png"></img>
                     </div>
-                </div>
-
-                <div className="screenshots-single" >
-                    <img className="enlargeable" src="images/kitty-images/controls.png" alt={"controls"}></img>
                 </div>
             </div>
         </div>
     );
 };
 
-export default KittyKaboom;
+export default CubicTangle;

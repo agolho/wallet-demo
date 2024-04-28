@@ -14,22 +14,11 @@ import FlyKitty from "@/pages/flykitty";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import Cubictangle from "@/pages/cubictangle";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-	apiKey: "AIzaSyDx0s34dTsZTZXXE26qWSxIyIGCVqrAQHs",
-	authDomain: "strayhub-65a3f.firebaseapp.com",
-	projectId: "strayhub-65a3f",
-	storageBucket: "strayhub-65a3f.appspot.com",
-	messagingSenderId: "322139941913",
-	appId: "1:322139941913:web:bd2ebc51ebe8b905220e88",
-	measurementId: "G-YNYHYPW2XJ"
-};
-
-
-
 
 export default function Home() {
 	const [isNetworkSwitchHighlighted, setIsNetworkSwitchHighlighted] =
@@ -41,9 +30,6 @@ export default function Home() {
 		setIsConnectHighlighted(false);
 	};
 
-	// Initialize Firebase
-	const app = initializeApp(firebaseConfig);
-	const analytics = getAnalytics(app);
 
 	const showSidebar = window.innerWidth >= 768;
 
@@ -63,6 +49,8 @@ export default function Home() {
 				return <KittyKaboom />;
 			case "Fly Kitty!":
 				return <FlyKitty />;
+			case "Cubic Tangle":
+				return <Cubictangle />;
 			default:
 				return <Homepage/>;
 		}
@@ -121,19 +109,37 @@ export default function Home() {
 			<div className={styles.main}>
 				{/* Columns for screens where columns are displayed side by side */}
 				<Container className={"homepage"} fluid>
-					<div className="row">
-						<div className="col-md-2">
+					<div className="content-container">
+						<div className="sidebar">
 							{/* Sidebar navigation */}
 
-							<Image src="/logosct.png" width={186} height={170} alt={"logo"} onClick={()=> handleLinkClick("Homepage")} priority={true} ></Image>
+							<img className={"sitelogo"} src="/logosct.png"  alt={"site logo"}></img>
 							<Nav defaultActiveKey="/home" className="flex-column">
-								<Nav.Link href="#" onClick={() => handleLinkClick("Homepage")} active={activeLink === "Homepage"}>Home</Nav.Link>
-								<Nav.Link href="#" onClick={() => handleLinkClick("Speedy Paws")} active={activeLink === "Speedy Paws"}>Speedy Paws</Nav.Link>
-								<Nav.Link href="#" onClick={() => handleLinkClick("Kitty Kaboom")} active={activeLink === "Kitty Kaboom"}>Kitty Kaboom</Nav.Link>
-								<Nav.Link href="#" onClick={() => handleLinkClick("Fly Kitty!")} active={activeLink === "Fly Kitty!"}>Fly Kitty!</Nav.Link>
+								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Homepage")} active={activeLink === "Homepage"}>
+									<img className={"icon"} src={"/icons/home.png"}></img>
+									Home
+
+								</Nav.Link>
+								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Speedy Paws")} active={activeLink === "Speedy Paws"}>
+									<img className={"icon"} src={"/icons/car.png"}></img>
+									Speedy Paws
+								</Nav.Link>
+								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Kitty Kaboom")} active={activeLink === "Kitty Kaboom"}>
+									<img className={"icon"} src={"/icons/bomb.png"}></img>
+
+									Kitty Kaboom
+								</Nav.Link>
+								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Fly Kitty!")} active={activeLink === "Fly Kitty!"}>
+									<img className={"icon"} src={"/icons/airplane.png"}></img>
+									Fly Kitty!
+								</Nav.Link>
+								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Cubic Tangle")} active={activeLink === "Cubic Tangle"}>
+									<img className={"icon"} src={"/icons/puzzle.png"}></img>
+									Cubic Tangle
+								</Nav.Link>
 							</Nav>
 						</div>
-						<div id="main-content" className={'col '}>
+						<div id="main-content" className={'col'}>
 							{/* Render the selected page */}
 							{renderPage()}
 						</div>

@@ -2,7 +2,7 @@ import React from 'react';
 
 const SpeedyPaws: React.FC = () => {
     return (
-        <div id="content-column" className="main-content-inside">
+        <div id="content-column" className="view">
             <div className={"content-inner"}>
                 <div className="home">
                     <div className="background">
@@ -43,6 +43,45 @@ const SpeedyPaws: React.FC = () => {
                         </div>
                     </div>
                 </div>
+
+                <div className="game-detail">
+
+                    <img src="images/speedy-paws/speedy1.png" width={400} height={300}></img>
+
+                    <div className="info">
+                        <div className="title">Speedy Paws: Racing Revolution with a Feline Twist!</div>
+                        <p >
+                            Prepare to embark on a racing revolution like no other with Speedy Paws, where cars take a backseat to the true stars of the show: our furry feline friends. In this groundbreaking web3 racing game, each cat driver brings its own unique charm and abilities to the track, ensuring every race is a purr-fectly unpredictable adventure. Whether you're navigating tight corners with the agility of a nimble Bengal or unleashing the raw speed of a majestic Maine Coon on the straightaways, Speedy Paws offers a dynamic and exhilarating driving experience that will leave you feline fine!
+                        </p>
+                    </div>
+                </div>
+
+                <div className="game-detail">
+
+
+                    <div className="info-right">
+                        <div className="title">More than race cars!</div>
+                        <p>
+                            But Speedy Paws isn't just about flashy cars—it's about the thrill of the chase and the rush of victory. As you rev your engines and tear through each hairpin turn, you'll feel the adrenaline coursing through your veins as you vie for the top spot on the leaderboard. And with the added incentive of web3 rewards waiting at the finish line, every race becomes an exhilarating opportunity to earn exclusive prizes and establish your dominance in the Speedy Paws universe. So why settle for ordinary racing games when you can join the purr-fectly thrilling world of Speedy Paws and experience the ultimate fusion of gaming excitement and web3 innovation?
+                        </p>
+                    </div>
+                    <img src="images/speedy-paws/speedy1.png" width={400} height={300}></img>
+                </div>
+
+                <div className="screenshots">
+                    <div className="info">
+                        <img className="" src="images/speedy-paws/ss1.png"></img>
+
+                    </div>
+                    <div className="info">
+                        <img className="" src="images/speedy-paws/ss2.png"></img>
+                    </div>
+                </div>
+
+                <div className="screenshots-single" >
+                    <img className="enlargeable" src="images/speedy-paws/controls.png" alt={"controls"}></img>
+                </div>
+
             </div>
         </div>
     );

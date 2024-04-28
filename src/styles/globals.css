@@ -72,6 +72,7 @@ li {
 header {
 	position: fixed;
 	width: 100%;
+	z-index: 1000;
 }
 
 
@@ -79,6 +80,34 @@ html{
 }
 .container{
 
+}
+.sitelogo{
+	height: 6.57813vw;
+	width: 10.07813vw;
+	padding-left: 3em;
+	margin: 2em;
+	margin-left: 1em;
+}
+.nav-link{
+	height: 3.39844vw;
+	font-size: .82031vw;
+	font-family: Poppins-Regular, sans-serif;
+	color: #81889a !important;
+	-webkit-transition: color .3s;
+	transition: color .3s;
+}
+.nav-link:hover{
+	color: #3353a1 !important;
+}
+.nav-link a{
+	height: 3.39844vw;
+}
+.nav-link .icon{
+	width: 3vw;
+	margin-right: 1.36719vw;
+	margin-left: 1.3vw;
+	height: 4vw;
+	width: 4vw;
 }
 video{
 	margin: 0;
@@ -98,10 +127,43 @@ video{
 	background-color: #1d1f2a;
 }
 
+.content-container{
+	border-radius: .66406vw;
+	padding: 1.09375vw 1.09375vw 1.52344vw;
+}
+.main-content{
+}
+
 .main-content-inside{
-	background-color: white;
 	width: 100%;
 	height: 100vh;
+}
+.sidebar{
+	width: 15.03906vw;
+	background: #1c1e2a;
+	top: 0;
+	padding-top: 1.09375vw;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+
+	z-index: 10000;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+
+}
+.view{
+	margin: -2em -2em -2em 14.0001vw;
+	box-sizing: border-box;
+	min-height: 100vh;
+	position: relative;
 }
 .logo{
 	margin: 1em;
@@ -111,13 +173,18 @@ video{
 	background-color: orange !important;
 }
 .content-inner{
-	display: block;
+	background-color: #070d14;
+	position: relative;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 }
 .home{
+	height: 56.05469vw;
 	width: 100%;
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
+	margin-bottom: 40vw;
 	-webkit-box-orient: vertical;
 	-webkit-box-direction: normal;
 	-ms-flex-direction: column;
@@ -129,8 +196,6 @@ video{
 	-ms-flex-pack: center;
 	justify-content: center;
 	position: relative;
-	height: 96.05469vw;
-
 }
 .home .background{
 	top: 0;
@@ -138,6 +203,7 @@ video{
 	right: 0;
 	z-index: 0;
 	position: absolute;
+	height: 46.71875vw;
 }
 .home .background img{
 	width: 100%;
@@ -146,9 +212,9 @@ video{
 	object-fit: cover;
 	-o-object-position: center;
 	object-position: center;
-	z-index: 0;
+	z-index: -1;
 }
-.home .background::after {
+.home :after {
 	content: "";
 	display: block;
 	width: 100%;
@@ -162,11 +228,12 @@ video{
 }
 
 .home .title{
+
 	font-family: Poppins-Bold, sans-serif;
 	font-weight: 700;
 	color: #fff;
-	font-size: 1.05469vw;
-	margin-top: 1.13281vw;
+	font-size: 3.05469vw;
+	margin-top: 20.13281vw;
 	margin-bottom: .89844vw;
 	z-index: 1;
 }
@@ -191,6 +258,8 @@ video{
 	padding-left: 11.13281vw;
 	margin-top: -30vw;
 	color: white;
+	display: flex;
+	position: relative;
 }
 
 .row{
@@ -225,7 +294,7 @@ video{
 }
 .standard .tab-container .title{
 	margin-top: 1.52344vw;
-	font-size: 1.67969vw;
+	font-size: 1.55469vw;
 	font-family: Poppins-Bold, sans-serif;
 	font-weight: 700;
 	color: #fff;
@@ -265,6 +334,76 @@ video{
 	font-family: Poppins-Bold, sans-serif;
 	font-weight: 700;
 	color: #fff;
+}
+
+.game-detail{
+	padding: 0 7.65625vw 3.90625vw;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	position: relative;
+	z-index: 1;
+}
+.screenshots{
+	padding: 0 7.65625vw 7.90625vw;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	position: relative;
+	z-index: 1;
+}
+.screenshots img{
+	width: 33.78906vw;
+	height: auto;
+	padding: 1em;
+}
+.screenshots-single{
+	max-width: fit-content;
+	margin-left: auto;
+	margin-right: auto;
+	width: 1400px;
+	padding-bottom: 3em;
+}
+.screenshots-single img{
+	max-width: 100%;
+	display: block;
+}
+.game-detail img{
+	width: 33.78906vw;
+	height: auto;
+}
+.game-detail .info{
+	margin-left: 3.55469vw;
+	-webkit-box-flex: 1;
+	-ms-flex: 1 1;
+	flex: 1 1;
+}
+.game-detail .info-right{
+	margin-right: 3.55469vw;
+	-webkit-box-flex: 1;
+	-ms-flex: 1 1;
+	flex: 1 1;
+}
+.game-detail .title{
+	font-family: Poppins-Bold, sans-serif;
+	font-weight: 700;
+	color: #fff;
+	line-height: 1.55;
+	font-size: 1.67969vw;
+}
+.game-detail p{
+	line-height: 1.45;
+	font-family: Poppins-Regular, sans-serif;
+	font-weight: 400;
+	color: #fff;
+	margin-top: 1.44531vw;
+	font-size: .82031vw;
 }
 
 .background-kittykaboom{

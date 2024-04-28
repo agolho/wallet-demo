@@ -1,5 +1,5 @@
 .main {
-	display: grid;
+
 	place-items: center;
 	height: 100%;
 	background: linear-gradient(
@@ -149,11 +149,11 @@ span.button:hover {
 
 .header {
 	display: flex;
-	z-index: 1000;
+	position: relative;
+	z-index: 3;
 	justify-content: space-between;
 	align-items: center;
-	padding: 1rem;
-	padding-bottom: 1.75rem;
+	padding: 1rem 1rem 1.75rem;
 }
 
 .header .buttons {
@@ -162,6 +162,8 @@ span.button:hover {
 	gap: 0.5rem;
 	background-color: rgba(224, 101, 4, 0.37);
 	border-radius: 50px;
+	position: relative;
+	z-index: 100;
 }
 
 .backdrop {
