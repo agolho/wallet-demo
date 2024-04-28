@@ -112,8 +112,9 @@ export default function Home() {
 					<div className="content-container">
 						<div className="sidebar">
 							{/* Sidebar navigation */}
-
-							<img className={"sitelogo"} src="/logosct.png"  alt={"site logo"}></img>
+							<div className={"sitelogo"}>
+								<img className={""} src="/logosct.png"  alt={"site logo"}></img>
+							</div>
 							<Nav defaultActiveKey="/home" className="flex-column">
 								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Homepage")} active={activeLink === "Homepage"}>
 									<img className={"icon"} src={"/icons/home.png"}></img>

@@ -82,11 +82,10 @@ html{
 
 }
 .sitelogo{
-	height: 6.57813vw;
-	width: 10.07813vw;
-	padding-left: 3em;
+	height: 150px;
+	width: auto;
 	margin: 2em;
-	margin-left: 1em;
+	margin-left: 3em;
 }
 .nav-link{
 	height: 3.39844vw;
