@@ -172,7 +172,6 @@ span.button:hover {
 	bottom: 0;
 	z-index: 4;
 	pointer-events: none;
-	background: hsla(0, 0%, 4%, 0.75);
 	transition: opacity 0.2s;
 }
 
