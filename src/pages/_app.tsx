@@ -31,10 +31,9 @@ const chains = [
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "805d0b65411f4dfbd3425be219ee4821";
 
 const metadata = {
-	name: "Next Starter Template",
-	description: "A Next.js starter template with Web3Modal v3 + Wagmi",
-	url: "https://web3modal.com",
-	icons: ["https://avatars.githubusercontent.com/u/37784886"],
+	name: "StrayCatTribe Game HUB",
+	description: "Official Game HUB of StrayCatTribe",
+	url: "https://strayhub.xyz",
 };
 
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
