@@ -2,7 +2,7 @@ import React from "react";
 
 const FlyKitty = () => {
     return (
-        <div id="content-column" className="view">
+        <div id="content-column" className="main-content-inside">
             <div className={"content-inner"}>
                 <div className="home">
                     <div className="background">

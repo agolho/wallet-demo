@@ -14,7 +14,6 @@ import FlyKitty from "@/pages/flykitty";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
@@ -120,18 +119,6 @@ export default function Home() {
 				</div>
 			</header>
 			<div className={styles.main}>
-				{/* Navbar for screens where columns stack vertically */}
-				<Navbar bg="light" expand="lg" className={!showSidebar ? 'd-lg-none' : 'd-none'}>
-					<Navbar.Brand href="#home">Navbar</Navbar.Brand>
-					<Navbar.Toggle aria-controls="basic-navbar-nav" />
-					<Navbar.Collapse id="basic-navbar-nav">
-						<Nav className="mr-auto">
-							<Nav.Link href="#home">Home</Nav.Link>
-							<Nav.Link href="#link">Link</Nav.Link>
-						</Nav>
-					</Navbar.Collapse>
-				</Navbar>
-
 				{/* Columns for screens where columns are displayed side by side */}
 				<Container className={"homepage"} fluid>
 					<div className="row">
