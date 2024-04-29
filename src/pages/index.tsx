@@ -9,18 +9,16 @@ import SpeedyPaws from "@/pages/speedypaws";
 import Homepage from "@/pages/homepage";
 import KittyKaboom from "@/pages/kittykaboom";
 import FlyKitty from "@/pages/flykitty";
-
-
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import Cubictangle from "@/pages/cubictangle";
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import dynamic from "next/dynamic";
 
 export default function Home() {
+
+	const WalletMultiButtonDynamic = dynamic(
+		async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
+		{ ssr: false }
+	);
+
 	const [isNetworkSwitchHighlighted, setIsNetworkSwitchHighlighted] =
 		useState(false);
 	const [isConnectHighlighted, setIsConnectHighlighted] = useState(false);
@@ -29,9 +27,6 @@ export default function Home() {
 		setIsNetworkSwitchHighlighted(false);
 		setIsConnectHighlighted(false);
 	};
-
-
-	const showSidebar = window.innerWidth >= 768;
 
 	const [activeLink, setActiveLink] = useState("Homepage");
 
@@ -83,26 +78,9 @@ export default function Home() {
 				<div className={styles.header}>
 					<div></div>
 					<div className={styles.buttons}>
-						<div
-							onClick={closeAll}
-							className={`${styles.highlight} ${
-								isNetworkSwitchHighlighted
-									? styles.highlightSelected
-									: ``
-							}`}
-						>
-							<w3m-network-button />
-						</div>
-						<div
-							onClick={closeAll}
-							className={`${styles.highlight} ${
-								isConnectHighlighted
-									? styles.highlightSelected
-									: ``
-							}`}
-						>
-							<w3m-button />
-						</div>
+
+							<WalletMultiButtonDynamic />
+
 					</div>
 				</div>
 			</header>

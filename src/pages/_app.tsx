@@ -1,58 +1,51 @@
-import "@/styles/globals.css";
-import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
+import { UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { clusterApiUrl } from '@solana/web3.js';
+import type { AppProps } from 'next/app';
+import type { FC } from 'react';
+import React, { useMemo } from 'react';
 
-import { WagmiConfig } from "wagmi";
-import type { AppProps } from "next/app";
-import { useEffect, useState } from "react";
-import {
-	arbitrum,
-	avalanche,
-	bsc,
-	fantom,
-	gnosis,
-	mainnet,
-	optimism,
-	polygon,
-} from "wagmi/chains";
+// Use require instead of import since order matters
+require('@solana/wallet-adapter-react-ui/styles.css');
+require('../styles/globals.css');
 
-const chains = [
-	mainnet,
-	polygon,
-	avalanche,
-	arbitrum,
-	bsc,
-	optimism,
-	gnosis,
-	fantom,
-];
+const App: FC<AppProps> = ({ Component, pageProps }) => {
+	// Can be set to 'devnet', 'testnet', or 'mainnet-beta'
+	const network = WalletAdapterNetwork.Devnet;
 
-// 1. Get projectID at https://cloud.walletconnect.com
+	// You can also provide a custom RPC endpoint
+	const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
-const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "805d0b65411f4dfbd3425be219ee4821";
+	const wallets = useMemo(
+		() => [
+			/**
+			 * Wallets that implement either of these standards will be available automatically.
+			 *
+			 *   - Solana Mobile Stack Mobile Wallet Adapter Protocol
+			 *     (https://github.com/solana-mobile/mobile-wallet-adapter)
+			 *   - Solana Wallet Standard
+			 *     (https://github.com/solana-labs/wallet-standard)
+			 *
+			 * If you wish to support a wallet that supports neither of those standards,
+			 * instantiate its legacy wallet adapter here. Common legacy adapters can be found
+			 * in the npm package `@solana/wallet-adapter-wallets`.
+			 */
+		],
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[network]
+	);
 
-const metadata = {
-	name: "StrayCatTribe Game HUB",
-	description: "Official Game HUB of StrayCatTribe",
-	url: "https://strayhub.xyz",
+	return (
+		<ConnectionProvider endpoint={endpoint}>
+			<WalletProvider wallets={wallets} autoConnect>
+				<WalletModalProvider>
+					<Component {...pageProps} />
+				</WalletModalProvider>
+			</WalletProvider>
+		</ConnectionProvider>
+	);
 };
 
-const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
-
-createWeb3Modal({ wagmiConfig, projectId, chains });
-
-export default function App({ Component, pageProps }: AppProps) {
-	const [ready, setReady] = useState(false);
-
-	useEffect(() => {
-		setReady(true);
-	}, []);
-	return (
-		<>
-			{ready ? (
-				<WagmiConfig config={wagmiConfig}>
-					<Component {...pageProps} />
-				</WagmiConfig>
-			) : null}
-		</>
-	);
-}
+export default App;
