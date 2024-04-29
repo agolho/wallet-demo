@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from "@/styles/Home.module.css";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 
 import SpeedyPaws from "@/pages/speedypaws";
 import Homepage from "@/pages/homepage";
@@ -11,6 +11,8 @@ import KittyKaboom from "@/pages/kittykaboom";
 import FlyKitty from "@/pages/flykitty";
 import Cubictangle from "@/pages/cubictangle";
 import dynamic from "next/dynamic";
+import {useConnection, useWallet} from "@solana/wallet-adapter-react";
+
 
 export default function Home() {
 
@@ -18,6 +20,28 @@ export default function Home() {
 		async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
 		{ ssr: false }
 	);
+
+	const { connection } = useConnection();
+	const [balance, setBalance] = useState<number>(0);
+
+
+	const [allowedWallets, setAllowedWallets] = useState<string[]>([]);
+	const [isAllowed, setIsAllowed] = useState(false);
+	const { publicKey } = useWallet();
+
+	useEffect(() => {
+		fetch("/allowlist.txt")
+			.then(response => response.text())
+			.then(data => {
+				const keys = data.split("\n").map(key => key.trim()).filter(Boolean); // Filter out empty lines
+				setAllowedWallets(keys);
+			})
+			.catch(error => console.error("Error fetching allowed wallets:", error));
+	}, []);
+
+	useEffect(() => {
+		setIsAllowed(allowedWallets.includes(publicKey?.toBase58() || ""));
+	}, [publicKey, allowedWallets]);
 
 	const [isNetworkSwitchHighlighted, setIsNetworkSwitchHighlighted] =
 		useState(false);
@@ -39,13 +63,13 @@ export default function Home() {
 			case "Homepage":
 				return <Homepage/>;
 			case "Speedy Paws":
-				return <SpeedyPaws />;
+				return <SpeedyPaws isAllowed={isAllowed} />;
 			case "Kitty Kaboom":
-				return <KittyKaboom />;
+				return <KittyKaboom isAllowed={isAllowed}/>;
 			case "Fly Kitty!":
-				return <FlyKitty />;
+				return <FlyKitty isAllowed={isAllowed} />;
 			case "Cubic Tangle":
-				return <Cubictangle />;
+				return <Cubictangle isAllowed={isAllowed} />;
 			default:
 				return <Homepage/>;
 		}
@@ -90,13 +114,13 @@ export default function Home() {
 						<div className="sidebar">
 							{/* Sidebar navigation */}
 							<div className={"sitelogo"}>
+								<a href={"#"} onClick={() => handleLinkClick("Homepage")}>
 								<img className={"img-fluid"} src="/logosct.png"  alt={"site logo"}></img>
+								</a>
 							</div>
 							<Nav defaultActiveKey="/home" className="flex-column">
-								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Homepage")} active={activeLink === "Homepage"}>
-									<img className={"icon img-fluid"} width={32} height={32} src={"/icons/home.png"}></img>
-									Home
-
+								<Nav.Link className={"nav-link"}>
+									<WalletMultiButtonDynamic/>
 								</Nav.Link>
 								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Speedy Paws")} active={activeLink === "Speedy Paws"}>
 									<img className={"icon img-fluid"} width={32} height={32} src={"/icons/car.png"}></img>
@@ -124,6 +148,7 @@ export default function Home() {
 							{/* Render the selected page */}
 							{renderPage()}
 						</div>
+
 					</div>
 				</Container>
 			</div>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const FlyKitty = () => {
+const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
     return (
         <div id="content-column" className="view">
             <div className={"content-inner"}>
@@ -10,10 +10,21 @@ const FlyKitty = () => {
                     </div>
                     <h6 className={"title"}>Fly Kitty</h6>
                     <div className={"description"}>A Kitty, A Plane!</div>
+                    <div className={"description"}>
+                        <div>
+                            {isAllowed ? (
+                                <div> content for allowed users</div>
+                            ) : (
+                                <div>Sorry,  content is only available to allowed users.</div>
+                            )}
+                        </div>
+                    </div>
                 </div>
                 <div className="standard">
                     <div className="tab-container">
                         <h6 className="title">Game Details</h6>
+
+
                         <div className="total"><p >Game Genre</p>
                             <span >Racing</span>
                         </div>

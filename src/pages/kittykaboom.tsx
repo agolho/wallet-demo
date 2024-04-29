@@ -1,6 +1,6 @@
 import React from "react";
 
-const KittyKaboom = () => {
+const KittyKaboom = ({ isAllowed }: { isAllowed: boolean }) => {
     return (
         <div id="content-column" className="view">
             <div className={"content-inner"}>
@@ -10,6 +10,15 @@ const KittyKaboom = () => {
                     </div>
                     <h6 className={"title"}>Kitty Kaboom</h6>
                     <div className={"description"}>Boom!</div>
+                    <div className={"description"}>
+                        <div>
+                            {isAllowed ? (
+                                <div> content for allowed users</div>
+                            ) : (
+                                <div> content is only available to allowed users.</div>
+                            )}
+                        </div>
+                    </div>
                 </div>
                 <div className="standard">
                     <div className="tab-container">

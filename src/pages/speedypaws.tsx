@@ -1,15 +1,39 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Home from "@/pages/index";
+import {Button} from "react-bootstrap";
+import UnityComponent from "../../public/unity";
 
-const SpeedyPaws: React.FC = () => {
+const SpeedyPaws = ({ isAllowed }: { isAllowed: boolean }) => {
+    const [isGameVisible, setIsGameVisible] = useState(false);
+
+    const handlePlayClick = () => {
+        setIsGameVisible(true);
+    };
+
     return (
         <div id="content-column" className="view">
             <div className={"content-inner"}>
                 <div className="home">
                     <div className="background">
-                            <img src={"/images/speedy-paws/gamebanner.png"} alt={"game banner"}></img>
+                        <img src={"/images/speedy-paws/gamebanner.png"} alt={"game banner"}></img>
                     </div>
                     <h6 className={"title"}>Speedy Paws!</h6>
                     <div className={"description"}> Vroom Vroom!</div>
+                    <div className={"description"}>
+                        <div>
+                            {isAllowed ? (
+                                <>
+                                    {isGameVisible ? (
+                                        <UnityComponent />
+                                    ) : (
+                                        <Button onClick={handlePlayClick}>Play</Button>
+                                    )}
+                                </>
+                            ) : (
+                                <div>Sorry, Speedy Paws content is only available to allowed users.</div>
+                            )}
+                        </div>
+                    </div>
                 </div>
                 <div className="standard">
                     <div className="tab-container">
@@ -81,7 +105,6 @@ const SpeedyPaws: React.FC = () => {
                 <div className="screenshots-single" >
                     <img className="enlargeable" src="images/speedy-paws/controls.png" alt={"controls"}></img>
                 </div>
-
             </div>
         </div>
     );
