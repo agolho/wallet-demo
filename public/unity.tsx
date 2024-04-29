@@ -31,20 +31,14 @@ const UnityComponent = () => {
             // Handle desktop-specific configurations
         }
 
-        loadingBar.style.display = "block";
 
         const script = document.createElement("script");
         script.src = loaderUrl;
         script.onload = () => {
-            window.createUnityInstance(canvas, config, (progress) => {
-                progressBarFull.style.width = 100 * progress + "%";
-            }).then((unityInstance) => {
-                loadingBar.style.display = "none";
-                fullscreenButton.onclick = () => {
-                    unityInstance.SetFullscreen(1);
-                };
-            }).catch((message) => {
-                alert(message);
+            (window as any).createUnityInstance(canvas, config, (progress: number) => {
+
+            }).then((unityInstance: any) => {
+
             });
         };
         document.body.appendChild(script);
