@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Home from "@/pages/index";
 import {Button} from "react-bootstrap";
-import UnityComponent from "../../public/unity";
+import UnityComponent from "./unity";
 
 const SpeedyPaws = ({ isAllowed }: { isAllowed: boolean }) => {
     const [isGameVisible, setIsGameVisible] = useState(false);
@@ -70,7 +70,7 @@ const SpeedyPaws = ({ isAllowed }: { isAllowed: boolean }) => {
 
                 <div className="game-detail">
 
-                    <img src="images/speedy-paws/speedy1.png" width={400} height={300}></img>
+                    <img className={"img-fluid"} src="images/speedy-paws/speedy1.png" ></img>
 
                     <div className="info">
                         <div className="title">Speedy Paws: Racing Revolution with a Feline Twist!</div>
@@ -89,7 +89,7 @@ const SpeedyPaws = ({ isAllowed }: { isAllowed: boolean }) => {
                             But Speedy Paws isn't just about flashy cars—it's about the thrill of the chase and the rush of victory. As you rev your engines and tear through each hairpin turn, you'll feel the adrenaline coursing through your veins as you vie for the top spot on the leaderboard. And with the added incentive of web3 rewards waiting at the finish line, every race becomes an exhilarating opportunity to earn exclusive prizes and establish your dominance in the Speedy Paws universe. So why settle for ordinary racing games when you can join the purr-fectly thrilling world of Speedy Paws and experience the ultimate fusion of gaming excitement and web3 innovation?
                         </p>
                     </div>
-                    <img src="images/speedy-paws/speedy1.png" width={400} height={300}></img>
+                    <img className={"img-fluid"} src="images/speedy-paws/speedy1.png" width={400} height={300}></img>
                 </div>
 
                 <div className="screenshots">

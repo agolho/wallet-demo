@@ -12,7 +12,8 @@ import FlyKitty from "@/pages/flykitty";
 import Cubictangle from "@/pages/cubictangle";
 import dynamic from "next/dynamic";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-
+import {resolveToWalletAddress, getParsedNftAccountsByOwner,} from "@nfteyez/sol-rayz";
+import MyAwesomeGallery from "@/pages/nfteyez";
 
 export default function Home() {
 
@@ -23,6 +24,8 @@ export default function Home() {
 
 	const { connection } = useConnection();
 	const [balance, setBalance] = useState<number>(0);
+
+	const address = "3EqUrFrjgABCWAnqMYjZ36GcktiwDtFdkNYwY6C6cDzy";
 
 
 	const [allowedWallets, setAllowedWallets] = useState<string[]>([]);
@@ -111,42 +114,47 @@ export default function Home() {
 			<div className={styles.main}>
 				<Container className={"homepage"} fluid>
 					<div className="content-container">
-						<div className="sidebar">
+						<div className="navigation-bar ">
+							<MyAwesomeGallery walletPublicKey={publicKey?.toBase58() || ''} nftCollectionId={address} />
+
 							{/* Sidebar navigation */}
 							<div className={"sitelogo"}>
 								<a href={"#"} onClick={() => handleLinkClick("Homepage")}>
-								<img className={"img-fluid"} src="/logosct.png"  alt={"site logo"}></img>
+								<img className={"icon img-fluid"} src="/logosct.png"  alt={"site logo"}></img>
 								</a>
 							</div>
-							<Nav defaultActiveKey="/home" className="flex-column">
+							<Nav defaultActiveKey="/home" className=" navigation-menu">
+								<div className={"menu-wallet-connect"}>
+
 								<Nav.Link className={"nav-link"}>
-									<WalletMultiButtonDynamic/>
+										<WalletMultiButtonDynamic/>
 								</Nav.Link>
+								</div>
+
 								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Speedy Paws")} active={activeLink === "Speedy Paws"}>
 									<img className={"icon img-fluid"} width={32} height={32} src={"/icons/car.png"}></img>
-									Speedy Paws
+									<span className={"menu-item-title"}>Speedy Paws</span>
+
 								</Nav.Link>
 								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Kitty Kaboom")} active={activeLink === "Kitty Kaboom"}>
 									<img className={"icon img-fluid"} width={32} height={32} src={"/icons/bomb.png"}></img>
 
-									Kitty Kaboom
+									<span className={"menu-item-title"}>Kitty Kaboom</span>
 								</Nav.Link>
 								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Fly Kitty!")} active={activeLink === "Fly Kitty!"}>
 									<img className={"icon img-fluid"} width={32} height={32} src={"/icons/airplane.png"}></img>
-									<span>
-										Fly Kitty!
-
-									</span>
+									<span className={"menu-item-title"}>Fly Kitty!</span>
 								</Nav.Link>
 								<Nav.Link className={"nav-link"}  href="#" onClick={() => handleLinkClick("Cubic Tangle")} active={activeLink === "Cubic Tangle"}>
-									<img className={"icon"}  width={32} height={32} src={"/icons/puzzle.png"}></img>
-									Cubic Tangle
+									<img className={"icon img-fluid"}  width={32} height={32} src={"/icons/puzzle.png"}></img>
+									<span className={"menu-item-title"}>Cubic Tangle</span>
 								</Nav.Link>
 							</Nav>
 						</div>
 						<div id="main-content" className={''}>
 							{/* Render the selected page */}
 							{renderPage()}
+
 						</div>
 
 					</div>

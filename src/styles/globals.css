@@ -119,13 +119,12 @@ video{
 }
 
 .homepage{
-	overflow: hidden !important;
 	background-color: #1d1f2a;
 }
 
 .content-container{
 	border-radius: .66406vw;
-	padding: 1.09375vw 1.09375vw 1.52344vw;
+	padding: 0;
 }
 .main-content{
 }
@@ -134,6 +133,16 @@ video{
 	width: 100%;
 	height: 100vh;
 }
+
+.navigation-bar {
+	z-index: 10000;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box
+}
+
 .sidebar{
 	width: 15.03906vw;
 	background: #1c1e2a;
@@ -224,12 +233,10 @@ video{
 }
 
 .home .title{
-
 	font-family: Poppins-Bold, sans-serif;
 	font-weight: 700;
 	color: #fff;
 	font-size: 3.05469vw;
-	margin-top: 20.13281vw;
 	margin-bottom: .89844vw;
 	z-index: 1;
 }
@@ -400,4 +407,149 @@ video{
 	color: #fff;
 	margin-top: 1.44531vw;
 	font-size: .82031vw;
+	text-align: justify;
+}
+
+
+@media (max-width: 1240px) {
+	.home .background{
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 0;
+		position: absolute;
+		height: 16.71875vw !important;
+	}
+	.home .background img{
+		width: 100%;
+		height: 50vh;
+		-o-object-fit: cover;
+		object-fit: cover;
+		-o-object-position: center;
+		object-position: center;
+		z-index: -1;
+	}
+
+
+	.navigation-bar {
+		z-index: 1000;
+		bottom: 0;
+		width: 100%;
+		height: 20vw;
+		background-color: #1d1f2a;
+	}
+	.nav{
+		flex-wrap: nowrap !important;
+		height: 100%;
+		place-content: center !important;
+	}
+
+	.menu-wallet-connect{
+		display: none;
+	}
+
+	.game-detail{
+		display: flex;
+		flex-direction: column;
+	}
+	.game-detail img{
+		height: 35vw;
+		width: auto;
+	}
+	.game-detail p{
+		font-size: small !important;
+	}
+	.game-detail .title{
+		font-size: large;
+	}
+
+	.navigation-menu{
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		position: relative;
+		background: #1c1e2a;
+		-webkit-box-shadow: 0px -1.05469vw 1.05469vw 0px rgba(0, 0, 0, .25);
+		box-shadow: 0 -1.05469vw 1.05469vw rgba(0, 0, 0, .25);
+	}
+	.navigation-menu .a{
+		-webkit-box-flex: 1;
+		-ms-flex: 1 1;
+		flex: 1 1;
+		height: 100%;
+		width: 100%;
+		position: relative;
+		text-wrap: none;
+	}
+	.view{
+		margin: 0;
+	}
+	.content-container{
+		padding: 0;
+		margin: 0;
+	}
+	.homepage{
+		padding: 0 !important;
+	}
+	.icon{
+		width: 10vw;
+	}
+	.nav-link{
+		display: flex;
+		flex-direction: row;
+		height: 100%;
+		width: 20vw;
+
+	}
+	.menu-item-title{
+		padding: 1em;
+		margin-top: 1.36719vw;
+		font-size: 2.65625vw;
+		font-weight: 700;
+		line-height: 1;
+		overflow: hidden;
+		text-align: center;
+	}
+	 .sitelogo{
+		-webkit-box-flex: 1;
+		-ms-flex: 1 1;
+		flex: 1 1;
+		 position: fixed;
+		 top:0;
+	}
+}
+@media (min-width: 1240px) {
+	.navigation-bar {
+		width: 15.03906vw;
+		background: #1c1e2a;
+		top: 0;
+		padding-top: 1.09375vw;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: column;
+		flex-direction: column;
+	}
+	.container-fluid{
+		padding: 0 !important;
+	}
+	.navigation-menu{
+
+	}
+	.navigation-menu .a{
+		-webkit-box-flex: 1;
+		-ms-flex: 1 1;
+		flex: 1 1;
+		height: 100%;
+		width: 100%;
+		position: relative;
+		text-wrap: none;
+		padding: 3em;
+	}
+	.menu-wallet-connect{
+		padding-bottom: 2em;
+	}
+
 }
