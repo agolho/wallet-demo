@@ -1,9 +1,34 @@
-import React from "react";
+import React, {useState} from "react";
+import UnityComponent from "@/pages/unity";
+import {Button} from "react-bootstrap";
 
-const KittyKaboom = ({ isAllowed }: { isAllowed: boolean }) => {
+const KittyKaboom = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnityInstance: any } ) => {
+    const [isGameVisible, setIsGameVisible] = useState(false);
+    let gameIsActive =false;
+    const handlePlayClick = () => {
+        if(gameIsActive) return;
+        gameIsActive= true;
+        setIsGameVisible(true);
+    };
+
     return (
         <div id="content-column" className="view">
             <div className={"content-inner"}>
+                <div>
+                    {isGameVisible ?(
+                        <UnityComponent
+                            gameName="SpeedyPaws"
+                            dataUrl="Data/Speedy/speedypaws.data.unityweb"
+                            frameworkUrl="Data/Speedy/speedypaws.framework.js.unityweb"
+                            codeUrl="Data/Speedy/speedypaws.wasm.unityweb"
+                            scriptUrl="Data/Speedy/speedypaws.loader.js"
+                            setUnityInstance={setUnityInstance}
+                        />
+                    ) : (
+                        <></>
+                    )}
+                </div>
+
                 <div className="home">
                     <div className="background">
                         <img src={"/images/kitty-images/gamebanner.png"} alt={"game banner"}></img>
@@ -13,9 +38,15 @@ const KittyKaboom = ({ isAllowed }: { isAllowed: boolean }) => {
                     <div className={"description"}>
                         <div>
                             {isAllowed ? (
-                                <div> content for allowed users</div>
+                                <>
+                                    {isGameVisible ? (
+                                        <></>
+                                    ) : (
+                                        <Button onClick={handlePlayClick}>Play</Button>
+                                    )}
+                                </>
                             ) : (
-                                <div> content is only available to allowed users.</div>
+                                <div>Sorry, Speedy Paws content is only available to allowed users.</div>
                             )}
                         </div>
                     </div>

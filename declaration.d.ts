@@ -1,3 +1,3 @@
 interface Window {
-    createUnityInstance: any; // Adjust the type if possible
+    createUnityInstance: (canvas: HTMLCanvasElement, config: any, onProgress: (progress: number) => void) => Promise<object>; // Adjust the type if possible
 }

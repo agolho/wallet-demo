@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from "@/styles/Home.module.css";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 import SpeedyPaws from "@/pages/speedypaws";
 import Homepage from "@/pages/homepage";
@@ -11,12 +11,10 @@ import KittyKaboom from "@/pages/kittykaboom";
 import FlyKitty from "@/pages/flykitty";
 import Cubictangle from "@/pages/cubictangle";
 import dynamic from "next/dynamic";
-import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-import {resolveToWalletAddress, getParsedNftAccountsByOwner,} from "@nfteyez/sol-rayz";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import MyAwesomeGallery from "@/pages/nfteyez";
 
 export default function Home() {
-
 	const WalletMultiButtonDynamic = dynamic(
 		async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
 		{ ssr: false }
@@ -26,7 +24,6 @@ export default function Home() {
 	const [balance, setBalance] = useState<number>(0);
 
 	const address = "3EqUrFrjgABCWAnqMYjZ36GcktiwDtFdkNYwY6C6cDzy";
-
 
 	const [allowedWallets, setAllowedWallets] = useState<string[]>([]);
 	const [isAllowed, setIsAllowed] = useState(false);
@@ -46,35 +43,44 @@ export default function Home() {
 		setIsAllowed(allowedWallets.includes(publicKey?.toBase58() || ""));
 	}, [publicKey, allowedWallets]);
 
-	const [isNetworkSwitchHighlighted, setIsNetworkSwitchHighlighted] =
-		useState(false);
-	const [isConnectHighlighted, setIsConnectHighlighted] = useState(false);
+	const [unityInstance, setUnityInstance] = useState<any>(null);
 
-	const closeAll = () => {
-		setIsNetworkSwitchHighlighted(false);
-		setIsConnectHighlighted(false);
+	let globalUnityInstance = null;
+	// Function to handle Unity instance cleanup
+	const cleanupUnityInstance = () => {
+		console.log('Cleaning up Unity instance');
+
+		if((window as any).globalUnityInstance == null) {
+			console.warn("unity instance is null");
+		}
+		else {
+			console.log((window as any).globalUnityInstance);
+		(window as any).globalUnityInstance.Quit();
+			console.log('Unity instance cleaned up successfully');
+		}
 	};
 
 	const [activeLink, setActiveLink] = useState("Homepage");
 
-	const handleLinkClick = (link:string) => {
+	const handleLinkClick = (link: string) => {
+		cleanupUnityInstance();
 		setActiveLink(link);
 	};
 
 	const renderPage = () => {
 		switch (activeLink) {
 			case "Homepage":
-				return <Homepage/>;
+				return <Homepage />;
 			case "Speedy Paws":
-				return <SpeedyPaws isAllowed={isAllowed} />;
+				return <SpeedyPaws isAllowed={isAllowed} setUnityInstance={setUnityInstance} />;
 			case "Kitty Kaboom":
-				return <KittyKaboom isAllowed={isAllowed}/>;
+				return <KittyKaboom isAllowed={isAllowed} setUnityInstance={setUnityInstance} />;
 			case "Fly Kitty!":
 				return <FlyKitty isAllowed={isAllowed} />;
 			case "Cubic Tangle":
 				return <Cubictangle isAllowed={isAllowed} />;
 			default:
-				return <Homepage/>;
+				return <Homepage />;
 		}
 	};
 
@@ -93,21 +99,10 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<header>
-				<div
-					className={styles.backdrop}
-					style={{
-						opacity:
-							isConnectHighlighted || isNetworkSwitchHighlighted
-								? 1
-								: 0,
-					}}
-				/>
 				<div className={styles.header}>
 					<div></div>
 					<div className={styles.buttons}>
-
-							<WalletMultiButtonDynamic />
-
+						<WalletMultiButtonDynamic />
 					</div>
 				</div>
 			</header>
@@ -116,37 +111,32 @@ export default function Home() {
 					<div className="content-container">
 						<div className="navigation-bar ">
 							<MyAwesomeGallery walletPublicKey={publicKey?.toBase58() || ''} nftCollectionId={address} />
-
 							{/* Sidebar navigation */}
 							<div className={"sitelogo"}>
 								<a href={"#"} onClick={() => handleLinkClick("Homepage")}>
-								<img className={"icon img-fluid"} src="/logosct.png"  alt={"site logo"}></img>
+									<img className={"icon img-fluid"} src="/logosct.png" alt={"site logo"}></img>
 								</a>
 							</div>
 							<Nav defaultActiveKey="/home" className=" navigation-menu">
 								<div className={"menu-wallet-connect"}>
-
-								<Nav.Link className={"nav-link"}>
-										<WalletMultiButtonDynamic/>
-								</Nav.Link>
+									<Nav.Link className={"nav-link"}>
+										<WalletMultiButtonDynamic />
+									</Nav.Link>
 								</div>
-
 								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Speedy Paws")} active={activeLink === "Speedy Paws"}>
 									<img className={"icon img-fluid"} width={32} height={32} src={"/icons/car.png"}></img>
 									<span className={"menu-item-title"}>Speedy Paws</span>
-
 								</Nav.Link>
 								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Kitty Kaboom")} active={activeLink === "Kitty Kaboom"}>
 									<img className={"icon img-fluid"} width={32} height={32} src={"/icons/bomb.png"}></img>
-
 									<span className={"menu-item-title"}>Kitty Kaboom</span>
 								</Nav.Link>
 								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Fly Kitty!")} active={activeLink === "Fly Kitty!"}>
 									<img className={"icon img-fluid"} width={32} height={32} src={"/icons/airplane.png"}></img>
 									<span className={"menu-item-title"}>Fly Kitty!</span>
 								</Nav.Link>
-								<Nav.Link className={"nav-link"}  href="#" onClick={() => handleLinkClick("Cubic Tangle")} active={activeLink === "Cubic Tangle"}>
-									<img className={"icon img-fluid"}  width={32} height={32} src={"/icons/puzzle.png"}></img>
+								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Cubic Tangle")} active={activeLink === "Cubic Tangle"}>
+									<img className={"icon img-fluid"} width={32} height={32} src={"/icons/puzzle.png"}></img>
 									<span className={"menu-item-title"}>Cubic Tangle</span>
 								</Nav.Link>
 							</Nav>
@@ -154,13 +144,10 @@ export default function Home() {
 						<div id="main-content" className={''}>
 							{/* Render the selected page */}
 							{renderPage()}
-
 						</div>
-
 					</div>
 				</Container>
 			</div>
 		</>
 	);
 }
-

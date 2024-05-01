@@ -3,20 +3,40 @@ import Home from "@/pages/index";
 import {Button} from "react-bootstrap";
 import UnityComponent from "./unity";
 
-const SpeedyPaws = ({ isAllowed }: { isAllowed: boolean }) => {
+const SpeedyPaws = ({ isAllowed, setUnityInstance }: { isAllowed: boolean, setUnityInstance: any }) => {
     const [isGameVisible, setIsGameVisible] = useState(false);
 
+    let gameIsActive =false;
     const handlePlayClick = () => {
+        if(gameIsActive) return;
+        gameIsActive= true;
         setIsGameVisible(true);
     };
+
 
     return (
         <div id="content-column" className="view">
             <div className={"content-inner"}>
+                <div>
+                    {isGameVisible ?(
+                        <UnityComponent
+                            gameName="SpeedyPaws"
+                            dataUrl="Data/Speedy/speedypaws.data.unityweb"
+                            frameworkUrl="Data/Speedy/speedypaws.framework.js.unityweb"
+                            codeUrl="Data/Speedy/speedypaws.wasm.unityweb"
+                            scriptUrl="Data/Speedy/speedypaws.loader.js"
+                            setUnityInstance={setUnityInstance}
+                        />
+                    ) : (
+                        <></>
+                    )}
+                </div>
                 <div className="home">
+
                     <div className="background">
                         <img src={"/images/speedy-paws/gamebanner.png"} alt={"game banner"}></img>
                     </div>
+
                     <h6 className={"title"}>Speedy Paws!</h6>
                     <div className={"description"}> Vroom Vroom!</div>
                     <div className={"description"}>
@@ -24,7 +44,7 @@ const SpeedyPaws = ({ isAllowed }: { isAllowed: boolean }) => {
                             {isAllowed ? (
                                 <>
                                     {isGameVisible ? (
-                                        <UnityComponent />
+                                        <></>
                                     ) : (
                                         <Button onClick={handlePlayClick}>Play</Button>
                                     )}
