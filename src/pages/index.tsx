@@ -32,20 +32,25 @@ export default function Home() {
 	const { connection } = useConnection();
 	const [balance, setBalance] = useState<number>(0);
 	const address = "3EqUrFrjgABCWAnqMYjZ36GcktiwDtFdkNYwY6C6cDzy";
+	const SignInDynamic = dynamic(async () =>
+		(await import('./SignIn')).SignIn, { ssr: false });
 
 	const [allowedWallets, setAllowedWallets] = useState<string[]>([]);
 	const [isAllowed, setIsAllowed] = useState(false);
 	const { publicKey } = useWallet();
 
+
+
 	useEffect(() => {
-		fetch("/allowlist.txt")
-			.then(response => response.text())
-			.then(data => {
-				const keys = data.split("\n").map(key => key.trim()).filter(Boolean); // Filter out empty lines
-				setAllowedWallets(keys);
-			})
-			.catch(error => console.error("Error fetching allowed wallets:", error));
+		const allowedWalletsString = process.env.ALLOWED_WALLETS;
+		if (allowedWalletsString) {
+			const keys = allowedWalletsString.split(",").map(key => key.trim()).filter(Boolean);
+			setAllowedWallets(keys);
+		} else {
+			console.error(" environment variable is not defined");
+		}
 	}, []);
+
 
 	useEffect(() => {
 		setIsAllowed(allowedWallets.includes(publicKey?.toBase58() || ""));

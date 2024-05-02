@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import UnityComponent from "@/pages/unity";
 import {Button} from "react-bootstrap";
-import Scrollslider from "@/pages/scrollslider";
+import ScrollSlider from "@/pages/scrollslider";
 
 const CubicTangle = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnityInstance: any }) => {
     const [isGameVisible, setIsGameVisible] = useState(false);
@@ -104,7 +104,7 @@ const CubicTangle = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
                         </div>
                     </div>
                 </div>
-                <Scrollslider imgSources={imgSources}></Scrollslider>
+                <ScrollSlider imgSources={imgSources}></ScrollSlider>
                 <div className="game-detail">
 
                     <img src="images/cube-tangle/cubic1.png" width={400} height={300}></img>

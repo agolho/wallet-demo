@@ -5,7 +5,6 @@ const Homepage = () => {
         <div className={"main-content-inside"}>
             {/* Add your Connect Wallet page content here */}
             <video src={"/video/lofi.mp4"} autoPlay muted></video>
-            <h1>asdasdasd</h1>
         </div>
     );
 };
