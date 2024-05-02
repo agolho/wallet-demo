@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import UnityComponent from "@/pages/unity";
 import {Button} from "react-bootstrap";
+import Scrollslider from "@/pages/scrollslider";
 
 const FlyKitty = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnityInstance: any }) => {
 
@@ -12,6 +13,22 @@ const FlyKitty = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnit
         gameIsActive= true;
         setIsGameVisible(true);
     };
+
+    const imgSources: string[] = [
+        'game-detail-assets/prizes/CommonBox.png',
+        'game-detail-assets/prizes/5usdc.png',
+        'game-detail-assets/prizes/10usdc.png',
+        'game-detail-assets/prizes/5usdc.png',
+        'game-detail-assets/prizes/UnCommonBox.png',
+        'game-detail-assets/prizes/10usdc.png',
+        'game-detail-assets/prizes/20USDC.png',
+        'game-detail-assets/prizes/10usdc.png',
+        'game-detail-assets/prizes/CommonBox.png',
+        'game-detail-assets/prizes/20USDC.png',
+        'game-detail-assets/prizes/UnCommonBox.png',
+        'game-detail-assets/prizes/20USDC.png',
+        'game-detail-assets/prizes/CommonBox.png'
+    ];
 
     return (
         <div id="content-column" className="view">
@@ -90,6 +107,7 @@ const FlyKitty = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnit
                         </div>
                     </div>
                 </div>
+                <Scrollslider imgSources={imgSources}></Scrollslider>
                 <div className="game-detail">
 
                     <img src="images/plane-images/ss1.png" width={400} height={300}></img>

@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import UnityComponent from "@/pages/unity";
 import {Button} from "react-bootstrap";
+import Scrollslider from "@/pages/scrollslider";
 
 const PawsomeTank = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnityInstance: any } ) => {
     const [isGameVisible, setIsGameVisible] = useState(false);
@@ -10,6 +11,22 @@ const PawsomeTank = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
         gameIsActive= true;
         setIsGameVisible(true);
     };
+
+    const imgSources: string[] = [
+        'game-detail-assets/prizes/CommonBox.png',
+        'game-detail-assets/prizes/5usdc.png',
+        'game-detail-assets/prizes/10usdc.png',
+        'game-detail-assets/prizes/5usdc.png',
+        'game-detail-assets/prizes/UnCommonBox.png',
+        'game-detail-assets/prizes/10usdc.png',
+        'game-detail-assets/prizes/20USDC.png',
+        'game-detail-assets/prizes/10usdc.png',
+        'game-detail-assets/prizes/CommonBox.png',
+        'game-detail-assets/prizes/20USDC.png',
+        'game-detail-assets/prizes/UnCommonBox.png',
+        'game-detail-assets/prizes/20USDC.png',
+        'game-detail-assets/prizes/CommonBox.png'
+    ];
 
     return (
         <div id="content-column" className="view">
@@ -60,7 +77,7 @@ const PawsomeTank = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
                         </div>
                     </div>
                 </div>
-
+                <Scrollslider imgSources={imgSources}></Scrollslider>
                 <div className="game-detail">
 
                     <img src="images/kitty-images/kitty1.png" width={400} height={300}></img>

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Button} from "react-bootstrap";
 import UnityComponent from "./unity";
+import Scrollslider from "@/pages/scrollslider";
 
 const SpeedyPaws = ({ isAllowed, setUnityInstance }: { isAllowed: boolean, setUnityInstance: any }) => {
     const [isGameVisible, setIsGameVisible] = useState(false);
@@ -11,6 +12,22 @@ const SpeedyPaws = ({ isAllowed, setUnityInstance }: { isAllowed: boolean, setUn
         gameIsActive= true;
         setIsGameVisible(true);
     };
+
+    const imgSources: string[] = [
+        'game-detail-assets/prizes/CommonBox.png',
+        'game-detail-assets/prizes/5usdc.png',
+        'game-detail-assets/prizes/10usdc.png',
+        'game-detail-assets/prizes/5usdc.png',
+        'game-detail-assets/prizes/UnCommonBox.png',
+        'game-detail-assets/prizes/10usdc.png',
+        'game-detail-assets/prizes/20USDC.png',
+        'game-detail-assets/prizes/10usdc.png',
+        'game-detail-assets/prizes/CommonBox.png',
+        'game-detail-assets/prizes/20USDC.png',
+        'game-detail-assets/prizes/UnCommonBox.png',
+        'game-detail-assets/prizes/20USDC.png',
+        'game-detail-assets/prizes/CommonBox.png'
+    ];
 
     return (
         <div id="content-column" className="view">
@@ -89,7 +106,7 @@ const SpeedyPaws = ({ isAllowed, setUnityInstance }: { isAllowed: boolean, setUn
                         </div>
                     </div>
                 </div>
-
+                <Scrollslider imgSources={imgSources}></Scrollslider>
                 <div className="game-detail">
 
                     <img className={"img-fluid"} src="images/speedy-paws/speedy1.png" ></img>
