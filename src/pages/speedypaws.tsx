@@ -48,7 +48,7 @@ const SpeedyPaws = ({ isAllowed, setUnityInstance }: { isAllowed: boolean, setUn
                                     )}
                                 </>
                             ) : (
-                                <div>Sorry, Speedy Paws is only available to NFT holders.</div>
+                                <div></div>
                             )}
                         </div>
                     </div>

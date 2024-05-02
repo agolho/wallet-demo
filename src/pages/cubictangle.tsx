@@ -46,7 +46,7 @@ const CubicTangle = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
                                     )}
                                 </>
                             ) : (
-                                <div>Sorry, Cubic Tangle is only available to NFT holders.</div>
+                                <div></div>
                             )}
                         </div>
                     </div>

@@ -46,7 +46,7 @@ const KittyKaboom = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
                                     )}
                                 </>
                             ) : (
-                                <div>Sorry, Speedy Paws content is only available to allowed users.</div>
+                                <div></div>
                             )}
                         </div>
                     </div>

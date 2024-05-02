@@ -47,7 +47,7 @@ const FlyKitty = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnit
                                     )}
                                 </>
                             ) : (
-                                <div>Sorry, Fly Kitty is only available to NFT holders.</div>
+                                <div></div>
                             )}
                         </div>
                     </div>
