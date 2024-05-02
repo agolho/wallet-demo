@@ -76,16 +76,16 @@ const KittyKaboom = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
                     <div className="tab-container">
                         <h6 className="title">Game Details</h6>
                         <div className="total"><p >Game Genre</p>
-                            <span >Racing</span>
+                            <span >Arcade</span>
                         </div>
                         <div className="check-container"><h6 >Zooming Kitties!</h6>
                             <div className="row details">
                                 <div className="column-6">
                                     <ul >
                                         <li >
-                                            <img src="/icons/arcade.png" width={32} height={32}></img>
+                                            <img src="/icons/action.png" width={32} height={32}></img>
                                             <p>
-                                                Arcade
+                                                Action
                                             </p>
                                         </li>
                                     </ul>
@@ -93,9 +93,9 @@ const KittyKaboom = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
                                 <div className="column-6">
                                     <ul >
                                         <li >
-                                            <img src="/icons/splitscreen.png" width={32} height={32} ></img>
+                                            <img src="/icons/achievement.png" width={32} height={32} ></img>
                                             <p>
-                                                Splitscreen
+                                                Achievements
                                             </p>
                                         </li>
                                     </ul>

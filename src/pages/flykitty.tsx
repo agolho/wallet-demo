@@ -96,9 +96,9 @@ const FlyKitty = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnit
                                 <div className="column-6">
                                     <ul >
                                         <li >
-                                            <img src="/icons/splitscreen.png" width={32} height={32} ></img>
+                                            <img src="/icons/action.png" width={32} height={32} ></img>
                                             <p>
-                                                Splitscreen
+                                                Action
                                             </p>
                                         </li>
                                     </ul>

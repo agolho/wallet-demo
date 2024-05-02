@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Home from "@/pages/index";
 import {useWallet} from "@solana/wallet-adapter-react";
+import {Button} from "react-bootstrap";
 
 interface UnityProps {
     gameName: string;
@@ -13,6 +14,9 @@ interface UnityProps {
 
 const UnityComponent: React.FC<UnityProps> = ({ gameName, dataUrl, frameworkUrl, codeUrl, scriptUrl, setUnityInstance }) => {
     const unityContainerRef = useRef<HTMLDivElement>(null); // Ref to Unity container
+    const closeButtonRef = useRef<HTMLDivElement>(null); // Ref to Unity container
+    const backgroundRef = useRef<HTMLDivElement>(null); // Ref to Unity container
+
     const { publicKey } = useWallet();
 
     useEffect(() => {
@@ -59,22 +63,51 @@ const UnityComponent: React.FC<UnityProps> = ({ gameName, dataUrl, frameworkUrl,
 
     }, [gameName, dataUrl, frameworkUrl, codeUrl, scriptUrl, setUnityInstance]);
 
+    function handleCloseClick() {
+        if ((window as any).globalUnityInstance) {
+            (window as any).globalUnityInstance.Quit();
+        }
+        if (backgroundRef.current) {
+            backgroundRef.current.style.display = "none";
+        }
+    }
+
+    function unityFullScreen() {
+        if ((window as any).globalUnityInstance) {
+            (window as any).globalUnityInstance.SetFullscreen(1);
+        }
+    }
+
     return (
-        <div ref={unityContainerRef} id="unity-container" className="unity-desktop">
-            <canvas id="unity-canvas" width="1280" height="720"></canvas>
-            <div id="unity-loading-bar">
-                <div id="unity-logo"></div>
-                <div id="unity-progress-bar-empty">
-                    <div id="unity-progress-bar-full"></div>
+        <div ref={backgroundRef} className={"unityBackground"}>
+            <div ref={closeButtonRef} className={"closeButton"}>
+            <Button onClick={handleCloseClick}>
+                X
+            </Button>
+            </div>
+            <div ref={unityContainerRef} id="unity-container" className="unity-desktop">
+                <canvas id="unity-canvas" width="1280" height="720"></canvas>
+                <div id="unity-loading-bar">
+                    <div id="unity-logo">
+                        <img src={"/TemplateData/unity-logo-dark.png"}></img>
+                    </div>
+                    <div id="unity-progress-bar-empty">
+                        <div id="unity-progress-bar-full"></div>
+                    </div>
+                </div>
+                <div id="unity-warning"> </div>
+                <div id="unity-footer">
+                    <div id="unity-webgl-logo"><img src={"/TemplateData/webgl-logo.png"}></img></div>
+                    <div id="unity-fullscreen-button">
+                        <a href={"#"} onClick={unityFullScreen}>
+                            <img src={"/TemplateData/fullscreen-button.png"}></img>
+                        </a>
+                    </div>
+                    <div id="unity-build-title">{gameName} @ Stray Cat Tribe</div>
                 </div>
             </div>
-            <div id="unity-warning"> </div>
-            <div id="unity-footer">
-                <div id="unity-webgl-logo"></div>
-                <div id="unity-fullscreen-button"></div>
-                <div id="unity-build-title">{gameName} @ Stray Cat Tribe</div>
-            </div>
         </div>
+
     );
 };
 
