@@ -89,10 +89,9 @@ const KittyKaboom = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
                     <img src="images/kitty-images/kitty1.png" width={400} height={300}></img>
 
                     <div className="info">
-                        <div className="title">Speedy Paws: Racing Revolution with a Feline Twist!</div>
+                        <div className="title">Feline Explosive Showdown: Kitty Kaboom</div>
                         <p >
-                            Prepare to embark on a racing revolution like no other with Speedy Paws, where cars take a backseat to the true stars of the show: our furry feline friends. In this groundbreaking web3 racing game, each cat driver brings its own unique charm and abilities to the track, ensuring every race is a purr-fectly unpredictable adventure. Whether you're navigating tight corners with the agility of a nimble Bengal or unleashing the raw speed of a majestic Maine Coon on the straightaways, Speedy Paws offers a dynamic and exhilarating driving experience that will leave you feline fine!
-                        </p>
+                            Gear up for an explosive showdown in "Feline Explosive Showdown: Kitty Kaboom," where savvy cats engage in a bombastic battle royale! Envision yourself amidst cunning feline warriors, surrounded on all sides by crafty adversaries, each determined to outmaneuver and outsmart the competition. Your objective? Strategically deploy bombs adjacent to the cubes in the center to thwart your opponents' advances while sidestepping their explosive traps. With danger lurking around every corner, only the most agile and cunning cats will emerge victorious in this thrilling game of survival.  </p>
                     </div>
                 </div>
 
@@ -100,10 +99,9 @@ const KittyKaboom = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
 
 
                     <div className="info-right">
-                        <div className="title">More than race cars!</div>
+                        <div className="title">Master the Stray Cat Explosives Brigade in 'Kitty Kaboom'</div>
                         <p>
-                            But Speedy Paws isn't just about flashy cars—it's about the thrill of the chase and the rush of victory. As you rev your engines and tear through each hairpin turn, you'll feel the adrenaline coursing through your veins as you vie for the top spot on the leaderboard. And with the added incentive of web3 rewards waiting at the finish line, every race becomes an exhilarating opportunity to earn exclusive prizes and establish your dominance in the Speedy Paws universe. So why settle for ordinary racing games when you can join the purr-fectly thrilling world of Speedy Paws and experience the ultimate fusion of gaming excitement and web3 innovation?
-                        </p>
+                            Join forces with the Stray Cat Explosives Brigade and brace yourself for an exhilarating contest where every move is critical! As you navigate the perilous battlefield, keep in mind that a single misstep could lead to your downfall. But fear not, for the taste of triumph awaits those who possess the skill and cunning to outwit their adversaries. And here's the kicker: as tensions escalate and bombs start flying, only the last cat standing will seize victory and bask in eternal glory. So, rally your comrades, refine your strategies, and prepare to outmaneuver, outsmart, and out-bomb your way to victory in Kitty Kaboom!    </p>
                     </div>
                     <img src="images/kitty-images/kitty2.png" width={400} height={300}></img>
                 </div>

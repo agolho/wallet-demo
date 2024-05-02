@@ -51,7 +51,7 @@ const UnityComponent: React.FC<UnityProps> = ({ gameName, dataUrl, frameworkUrl,
                 (window as any).globalUnityInstance = unityGameInstance;
                 console.log(unityGameInstance);
 
-                unityGameInstance.SendMessage("GameManager", "SetUsername", publicKey.toString())
+                if(publicKey != null) unityGameInstance.SendMessage("GameManager", "SetUsername", publicKey.toString())
             });
         };
 

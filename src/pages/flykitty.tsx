@@ -91,10 +91,9 @@ const FlyKitty = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnit
                     <img src="images/plane-images/ss1.png" width={400} height={300}></img>
 
                     <div className="info">
-                        <div className="title">Speedy Paws: Racing Revolution with a Feline Twist!</div>
+                        <div className="title">Fly Kitty! - Exciting Adventure of Pilot Cats</div>
                         <p >
-                            Prepare to embark on a racing revolution like no other with Speedy Paws, where cars take a backseat to the true stars of the show: our furry feline friends. In this groundbreaking web3 racing game, each cat driver brings its own unique charm and abilities to the track, ensuring every race is a purr-fectly unpredictable adventure. Whether you're navigating tight corners with the agility of a nimble Bengal or unleashing the raw speed of a majestic Maine Coon on the straightaways, Speedy Paws offers a dynamic and exhilarating driving experience that will leave you feline fine!
-                        </p>
+                            Fly Kitty! is a fun airplane combat game that you can play solo or with your friends. In this game, you compete to be the first to complete the round by using the adorable pilot cats' controlled planes to blast your opponents. You can use power-ups found along the way to attack enemies with your plane's machine gun or rocket launchers, destroying them. Additionally, while playing with your friends, you can either use tactics against them or collaborate to defeat opponents. </p>
                     </div>
                 </div>
 
@@ -102,10 +101,9 @@ const FlyKitty = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnit
 
 
                     <div className="info-right">
-                        <div className="title">More than race cars!</div>
+                        <div className="title">Fly Kitty! - Bridging Web3 with Web2 for Rewards and Benefits</div>
                         <p>
-                            But Speedy Paws isn't just about flashy cars—it's about the thrill of the chase and the rush of victory. As you rev your engines and tear through each hairpin turn, you'll feel the adrenaline coursing through your veins as you vie for the top spot on the leaderboard. And with the added incentive of web3 rewards waiting at the finish line, every race becomes an exhilarating opportunity to earn exclusive prizes and establish your dominance in the Speedy Paws universe. So why settle for ordinary racing games when you can join the purr-fectly thrilling world of Speedy Paws and experience the ultimate fusion of gaming excitement and web3 innovation?
-                        </p>
+                            Fly Kitty! stands out as a game available on the web3 platform, seamlessly integrating with web2. By playing this game, you can earn rewards and benefit from various advantages. Whether playing alone or with friends, you can enjoy spending entertaining moments and relish in competitive battles. Join the adventure of the pilot cats and prove your mastery in airplane warfare!</p>
                     </div>
                     <img src="images/plane-images/ss2.png" width={400} height={300}></img>
                 </div>

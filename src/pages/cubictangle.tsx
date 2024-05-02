@@ -89,10 +89,9 @@ const CubicTangle = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
                     <img src="images/cube-tangle/cubic1.png" width={400} height={300}></img>
 
                     <div className="info">
-                        <div className="title">Speedy Paws: Racing Revolution with a Feline Twist!</div>
+                        <div className="title">Unravel the Challenge with "Cubic Tangle"!</div>
                         <p >
-                            Prepare to embark on a racing revolution like no other with Speedy Paws, where cars take a backseat to the true stars of the show: our furry feline friends. In this groundbreaking web3 racing game, each cat driver brings its own unique charm and abilities to the track, ensuring every race is a purr-fectly unpredictable adventure. Whether you're navigating tight corners with the agility of a nimble Bengal or unleashing the raw speed of a majestic Maine Coon on the straightaways, Speedy Paws offers a dynamic and exhilarating driving experience that will leave you feline fine!
-                        </p>
+                            Welcome to the next generation of puzzle gaming with our revolutionary title, "Cubic Tangle"! Prepare to embark on an exhilarating journey of untangling ropes that are intricately intertwined on a cube's surfaces. With either 2 or 6 sides to conquer, each level presents a unique challenge that will test your spatial awareness and problem-solving skills. But beware, as you untangle the ropes on one side, you'll need to tackle the knots on the opposite side as well, adding an extra layer of complexity to the gameplay. </p>
                     </div>
                 </div>
 
@@ -100,10 +99,9 @@ const CubicTangle = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
 
 
                     <div className="info-right">
-                        <div className="title">More than race cars!</div>
+                        <div className="title">Experience the Next Generation of Puzzle Gaming!</div>
                         <p>
-                            But Speedy Paws isn't just about flashy cars—it's about the thrill of the chase and the rush of victory. As you rev your engines and tear through each hairpin turn, you'll feel the adrenaline coursing through your veins as you vie for the top spot on the leaderboard. And with the added incentive of web3 rewards waiting at the finish line, every race becomes an exhilarating opportunity to earn exclusive prizes and establish your dominance in the Speedy Paws universe. So why settle for ordinary racing games when you can join the purr-fectly thrilling world of Speedy Paws and experience the ultimate fusion of gaming excitement and web3 innovation?
-                        </p>
+                            "Cubic Tangle" isn't just your average puzzle game; it's a thrilling and competitive experience that will keep you hooked for hours on end. With its innovative mechanics and dynamic challenges, every level offers a fresh and engaging puzzle-solving experience. Compete against friends or global players to see who can unravel the ropes the fastest and claim the top spot on the leaderboard. As one of the best puzzle games on Web3, "Cubic Tangle" has the potential to win prestigious awards for its creativity and innovation, setting a new standard for puzzle gaming in the digital era. Combining the best of Web2 and Web3 technologies, "Cubic Tangle" delivers an immersive and interactive gaming experience like no other, making it a must-play for puzzle enthusiasts and casual gamers alike. Get ready to unravel the fun and excitement with "Cubic Tangle"! </p>
                     </div>
                     <img src="images/cube-tangle/cubic2.png" width={400} height={300}></img>
                 </div>

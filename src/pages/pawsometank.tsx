@@ -62,10 +62,9 @@ const PawsomeTank = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
                     <img src="images/kitty-images/kitty1.png" width={400} height={300}></img>
 
                     <div className="info">
-                        <div className="title">Speedy Paws: Racing Revolution with a Feline Twist!</div>
+                        <div className="title">Locked and Loaded!</div>
                         <p >
-                            Prepare to embark on a racing revolution like no other with Speedy Paws, where cars take a backseat to the true stars of the show: our furry feline friends. In this groundbreaking web3 racing game, each cat driver brings its own unique charm and abilities to the track, ensuring every race is a purr-fectly unpredictable adventure. Whether you're navigating tight corners with the agility of a nimble Bengal or unleashing the raw speed of a majestic Maine Coon on the straightaways, Speedy Paws offers a dynamic and exhilarating driving experience that will leave you feline fine!
-                        </p>
+                            Dive into the high-octane world of cooperative tank battles with "Pawsome Tank Team: Web3 Adventure," the ultimate co-op tank game that's taking the internet by storm! Picture this: you and your buddies teaming up to command fearless feline tanks in epic showdowns against rival squads. It's like a virtual catnip for adrenaline junkies! And here's the best part – playing this game on the web is an absolute breeze, thanks to its user-friendly setup and smooth-as-silk gameplay.  </p>
                     </div>
                 </div>
 
@@ -73,10 +72,9 @@ const PawsomeTank = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
 
 
                     <div className="info-right">
-                        <div className="title">More than race cars!</div>
+                        <div className="title">Join the Fun and Win Big with the Stray Cat Tribe in 'Pawsome Tank Team</div>
                         <p>
-                            But Speedy Paws isn't just about flashy cars—it's about the thrill of the chase and the rush of victory. As you rev your engines and tear through each hairpin turn, you'll feel the adrenaline coursing through your veins as you vie for the top spot on the leaderboard. And with the added incentive of web3 rewards waiting at the finish line, every race becomes an exhilarating opportunity to earn exclusive prizes and establish your dominance in the Speedy Paws universe. So why settle for ordinary racing games when you can join the purr-fectly thrilling world of Speedy Paws and experience the ultimate fusion of gaming excitement and web3 innovation?
-                        </p>
+                            Now, let me tell you about the cherry on top: "Pawsome Tank Team" is part of the super cool Stray Cat Tribe project. That means while you're out there dominating the battlefield and having a blast, you're also racking up chances to win some seriously awesome prizes. It's like hitting the jackpot while hanging out with your furry friends – what could be better? So, if you're ready to embark on an unforgettable adventure filled with tank warfare, camaraderie, and tons of prizes, hop on board the "Pawsome Tank Team: Web3 Adventure" train and let's roll out to victory!   </p>
                     </div>
                     <img src="images/kitty-images/kitty2.png" width={400} height={300}></img>
                 </div>
