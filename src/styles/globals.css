@@ -538,6 +538,19 @@ video{
 		flex-direction: row;
 	}
 
+	.ticketCounter{
+		position: fixed;
+		top: 5vw;
+		left: 46%;
+		width: 10vw;
+	}
+	.ticketCounter .progress{
+		background: none;
+	}
+	.ticketCounter .progress .progress-bar{
+		background: none;
+	}
+
 }
 @media (min-width: 1240px) {
 
@@ -707,6 +720,19 @@ video{
 }
 .scroll-slider li img{
 	width: 20vw;
+}
+.ticketCounter{
+	display: flex;
+	flex-direction: row;
+	margin-left: 2vw;
+}
+.ticketCounter .progress{
+	width: 50%;
+	margin-top:.5vw;
+	margin-left: 1vw;
+}
+.progress .progress-bar{
+	background-color: #ef7309;
 }
 @-webkit-keyframes sliderMovementOne {
 	0% {

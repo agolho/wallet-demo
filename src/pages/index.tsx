@@ -19,6 +19,7 @@ import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import NftEyez from "@/pages/nfteyez";
 import { useRouter } from 'next/router';
 import PawsomeTank from "@/pages/pawsometank";
+import Ticketcounter from "@/pages/ticketcounter";
 
 export default function Home() {
 	const router = useRouter();
@@ -137,6 +138,7 @@ export default function Home() {
 										<WalletMultiButtonDynamic />
 									</Nav.Link>
 								</div>
+								<Ticketcounter></Ticketcounter>
 								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Speedy Paws")} active={activeLink === "Speedy Paws"}>
 									<img className={"icon img-fluid"} width={32} height={32} src={"/icons/car.png"}></img>
 									<span className={"menu-item-title"}>Speedy Paws</span>
