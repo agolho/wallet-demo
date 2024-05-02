@@ -603,3 +603,46 @@ video{
 #unity-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: white; padding: 10px; display: none }
 
 /* /Unity */
+
+.socialLinks{
+	-webkit-box-flex: 1;
+	-ms-flex: 1 1;
+	flex: 1 1;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	-webkit-box-pack: end;
+	-ms-flex-pack: end;
+	justify-content: flex-end;
+	text-wrap: none !important;
+
+}
+.socialLinks a{
+	color: white !important;
+	text-wrap: none !important;
+	text-decoration: none;
+	width: 11.75781vw;
+	height: 2.8125vw;
+	padding-left: 2.14844vw;
+	margin-top: .70313vw;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	background-position: center center;
+	background-size: cover;
+	-webkit-transition: opacity .2s;
+	transition: opacity .2s;
+}
+.socialLinks a:first-child{
+	margin: 0;
+}
+.socialLinks a img{
+	padding-right: 1em;
+}

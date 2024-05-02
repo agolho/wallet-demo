@@ -4,6 +4,11 @@ import Head from "next/head";
 import { Nav, Container } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
 
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+config.autoAddCss = false
+
 import SpeedyPaws from "@/pages/speedypaws";
 import Homepage from "@/pages/homepage";
 import KittyKaboom from "@/pages/kittykaboom";
@@ -153,6 +158,27 @@ export default function Home() {
 									<span className={"menu-item-title"}>Pawsome Tank</span>
 								</Nav.Link>
 							</Nav>
+							<div className={"socialLinks"}>
+								<div className={"items"}>
+									<a href={"https://discord.gg/straycattribe"}>
+										<img className={"icon img-fluid"} width={30} height={30} src={"/icons/discord.png"}></img>
+										<span>Join Discord
+										</span>
+									</a>
+									<a href={"https://twitter.com/StrayCatTribe"}>
+										<img className={"icon img-fluid"} width={30} height={30} src={"/icons/x.png"}></img>
+
+									<span>
+										Stray Cat Tribe
+									</span>
+									</a>
+									<a href={"https://twitter.com/OnOffGames"}>
+										<img className={"icon img-fluid"} width={30} height={30} src={"/icons/x.png"}></img>
+										<span>On Off Games
+										</span>
+									</a>
+								</div>
+							</div>
 						</div>
 						<div id="main-content" className={''}>
 							{/* Render the selected page */}
