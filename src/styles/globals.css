@@ -86,6 +86,8 @@ html{
 	min-width: 10vw;
 	margin: 2em;
 	margin-left: 3em;
+	display: flex;
+	justify-content: center;
 }
 .nav-link{
 	height: 3.39844vw;
@@ -460,6 +462,7 @@ video{
 		flex-wrap: nowrap !important;
 		height: 100%;
 		place-content: center !important;
+		align-content: center !important;
 	}
 
 	.menu-wallet-connect{
