@@ -44,11 +44,15 @@ const SpeedyPaws = ({ isAllowed, setUnityInstance }: { isAllowed: boolean, setUn
                                     {isGameVisible ? (
                                         <></>
                                     ) : (
-                                        <Button onClick={handlePlayClick}>Play</Button>
+                                        <div className={"playButton"}>
+                                            <Button onClick={handlePlayClick}>Play</Button>
+                                        </div>
                                     )}
                                 </>
                             ) : (
-                                <div></div>
+                                <div className={"playButton"}>
+                                    <Button>Connect a valid wallet to Play</Button>
+                                </div>
                             )}
                         </div>
                     </div>
