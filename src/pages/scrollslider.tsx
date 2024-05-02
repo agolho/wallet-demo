@@ -4,7 +4,7 @@ interface DragonEggProps {
     imgSources: string[];
 }
 
-const ScrollSlider: React.FC<DragonEggProps> = ({ imgSources }) => {
+const ScrollSlider: React.FC<DragonEggProps> = ({ imgSources = [] }) => {
     return (
         <div className="scroll-slider">
             <div className={"title"}>Possible Rewards</div>

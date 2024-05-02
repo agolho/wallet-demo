@@ -60,7 +60,7 @@ const CubicTangle = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
                                         <></>
                                     ) : (
                                         <div className={"playButton"}>
-                                        <Button onClick={handlePlayClick}>Play</Button>
+                                            <Button onClick={handlePlayClick}>Play</Button>
                                         </div>
                                     )}
                                 </>
