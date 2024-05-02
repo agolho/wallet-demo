@@ -687,7 +687,7 @@ video{
 #unity-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: white; padding: 10px; display: none }
 /* /Unity */
 
-.socialLinks{
+.connectLinks{
 	-webkit-box-flex: 1;
 	-ms-flex: 1 1;
 	flex: 1 1;
@@ -706,7 +706,7 @@ video{
 	font-weight: 100;
 	text-space: 0.001vw;
 }
-.socialLinks a{
+.connectLinks a{
 	color: white !important;
 	text-wrap: none !important;
 	text-decoration: none;
@@ -725,10 +725,10 @@ video{
 	-webkit-transition: opacity .2s;
 	transition: opacity .2s;
 }
-.socialLinks a:first-child{
+.connectLinks a:first-child{
 	margin: 0;
 }
-.socialLinks a img{
+.connectLinks a img{
 	padding-right: 1em;
 }
 

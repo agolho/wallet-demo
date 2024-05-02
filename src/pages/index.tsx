@@ -177,7 +177,7 @@ export default function Home() {
 									<span className={"menu-item-title"}>Pawsome Tank</span>
 								</Nav.Link>
 							</Nav>
-							<div className={"socialLinks"}>
+							<div className={"connectLinks"}>
 								<div className={"items"}>
 									<a href={"https://discord.gg/straycattribe"}>
 										<img className={"icon img-fluid"} width={30} height={30} src={"/icons/discord.png"}></img>
