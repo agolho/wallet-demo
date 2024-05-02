@@ -1,9 +1,35 @@
-import React from "react";
+import React, {useState} from "react";
+import UnityComponent from "@/pages/unity";
+import {Button} from "react-bootstrap";
 
-const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
+const FlyKitty = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnityInstance: any }) => {
+
+    const [isGameVisible, setIsGameVisible] = useState(false);
+
+    let gameIsActive =false;
+    const handlePlayClick = () => {
+        if(gameIsActive) return;
+        gameIsActive= true;
+        setIsGameVisible(true);
+    };
+
     return (
         <div id="content-column" className="view">
             <div className={"content-inner"}>
+                <div>
+                    {isGameVisible ?(
+                        <UnityComponent
+                            gameName="Fly Kitty"
+                            dataUrl="Data/Planes/planes.data.unityweb"
+                            frameworkUrl="Data/Planes/planes.framework.js.unityweb"
+                            codeUrl="Data/Planes/planes.wasm.unityweb"
+                            scriptUrl="Data/Planes/planes.loader.js"
+                            setUnityInstance={setUnityInstance}
+                        />
+                    ) : (
+                        <></>
+                    )}
+                </div>
                 <div className="home">
                     <div className="background">
                         <img src={"/images/plane-images/gamebanner.jpg"} alt={"game banner"}></img>
@@ -13,9 +39,15 @@ const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
                     <div className={"description"}>
                         <div>
                             {isAllowed ? (
-                                <div> content for allowed users</div>
+                                <>
+                                    {isGameVisible ? (
+                                        <></>
+                                    ) : (
+                                        <Button onClick={handlePlayClick}>Play</Button>
+                                    )}
+                                </>
                             ) : (
-                                <div>Sorry,  content is only available to allowed users.</div>
+                                <div>Sorry, Fly Kitty is only available to NFT holders.</div>
                             )}
                         </div>
                     </div>

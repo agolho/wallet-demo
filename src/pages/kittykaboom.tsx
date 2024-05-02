@@ -17,11 +17,11 @@ const KittyKaboom = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
                 <div>
                     {isGameVisible ?(
                         <UnityComponent
-                            gameName="SpeedyPaws"
-                            dataUrl="Data/Speedy/speedypaws.data.unityweb"
-                            frameworkUrl="Data/Speedy/speedypaws.framework.js.unityweb"
-                            codeUrl="Data/Speedy/speedypaws.wasm.unityweb"
-                            scriptUrl="Data/Speedy/speedypaws.loader.js"
+                            gameName="KittyKaboom"
+                            dataUrl="Data/Kitty/kittykaboom.data.unityweb"
+                            frameworkUrl="Data/Kitty/kittykaboom.framework.js.unityweb"
+                            codeUrl="Data/Kitty/kittykaboom.wasm.unityweb"
+                            scriptUrl="Data/Kitty/kittykaboom.loader.js"
                             setUnityInstance={setUnityInstance}
                         />
                     ) : (

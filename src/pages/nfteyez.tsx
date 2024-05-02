@@ -2,7 +2,7 @@ import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import { Connection, PublicKey } from "@solana/web3.js";
 import { useEffect, useState } from "react";
 
-const MyAwesomeGallery = ({ walletPublicKey, nftCollectionId }: { walletPublicKey: string, nftCollectionId: string }) => {
+const NftEyez = ({ walletPublicKey, nftCollectionId }: { walletPublicKey: string, nftCollectionId: string }) => {
     const { connection } = useConnection();
     const { publicKey } = useWallet();
     const [hasNftFromCollection, setHasNftFromCollection] = useState(false);
@@ -33,8 +33,7 @@ const MyAwesomeGallery = ({ walletPublicKey, nftCollectionId }: { walletPublicKe
         fetchNFTAccounts().then(r => {});
     }, [connection, walletPublicKey, publicKey, nftCollectionId]);
 
-    if(hasNftFromCollection) console.log("has nft from collection"); else console.log("no nft from collection");
     return hasNftFromCollection;
 };
 
-export default MyAwesomeGallery;
+export default NftEyez;

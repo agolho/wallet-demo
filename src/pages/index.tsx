@@ -1,9 +1,8 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Nav, Navbar, Container } from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from "@/styles/Home.module.css";
-import React, { useEffect, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Head from "next/head";
+import { Nav, Container } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
 
 import SpeedyPaws from "@/pages/speedypaws";
 import Homepage from "@/pages/homepage";
@@ -12,9 +11,13 @@ import FlyKitty from "@/pages/flykitty";
 import Cubictangle from "@/pages/cubictangle";
 import dynamic from "next/dynamic";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import MyAwesomeGallery from "@/pages/nfteyez";
+import NftEyez from "@/pages/nfteyez";
+import { useRouter } from 'next/router';
+import PawsomeTank from "@/pages/pawsometank";
 
 export default function Home() {
+	const router = useRouter();
+
 	const WalletMultiButtonDynamic = dynamic(
 		async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
 		{ ssr: false }
@@ -22,7 +25,6 @@ export default function Home() {
 
 	const { connection } = useConnection();
 	const [balance, setBalance] = useState<number>(0);
-
 	const address = "3EqUrFrjgABCWAnqMYjZ36GcktiwDtFdkNYwY6C6cDzy";
 
 	const [allowedWallets, setAllowedWallets] = useState<string[]>([]);
@@ -54,16 +56,21 @@ export default function Home() {
 			console.warn("unity instance is null");
 		}
 		else {
-			console.log((window as any).globalUnityInstance);
-		(window as any).globalUnityInstance.Quit();
+			(window as any).globalUnityInstance.Quit();
 			console.log('Unity instance cleaned up successfully');
+			(window as any).globalUnityInstance = null;
 		}
 	};
 
 	const [activeLink, setActiveLink] = useState("Homepage");
 
-	const handleLinkClick = (link: string) => {
-		cleanupUnityInstance();
+	const handleLinkClick = async (link: string) => {
+		if ((window as any).globalUnityInstance) {
+			await new Promise<void>((resolve) => {
+				cleanupUnityInstance();
+				setTimeout(() => resolve(), 1000); // Adjust the timeout as needed
+			});
+		}
 		setActiveLink(link);
 	};
 
@@ -76,9 +83,11 @@ export default function Home() {
 			case "Kitty Kaboom":
 				return <KittyKaboom isAllowed={isAllowed} setUnityInstance={setUnityInstance} />;
 			case "Fly Kitty!":
-				return <FlyKitty isAllowed={isAllowed} />;
+				return <FlyKitty isAllowed={isAllowed} setUnityInstance={setUnityInstance}  />;
 			case "Cubic Tangle":
-				return <Cubictangle isAllowed={isAllowed} />;
+				return <Cubictangle isAllowed={isAllowed} setUnityInstance={setUnityInstance}  />;
+			case "Pawsome Tank":
+				return <PawsomeTank isAllowed={isAllowed} setUnityInstance={setUnityInstance} />;
 			default:
 				return <Homepage />;
 		}
@@ -110,7 +119,7 @@ export default function Home() {
 				<Container className={"homepage"} fluid>
 					<div className="content-container">
 						<div className="navigation-bar ">
-							<MyAwesomeGallery walletPublicKey={publicKey?.toBase58() || ''} nftCollectionId={address} />
+							<NftEyez walletPublicKey={publicKey?.toBase58() || ''} nftCollectionId={address} />
 							{/* Sidebar navigation */}
 							<div className={"sitelogo"}>
 								<a href={"#"} onClick={() => handleLinkClick("Homepage")}>
@@ -138,6 +147,10 @@ export default function Home() {
 								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Cubic Tangle")} active={activeLink === "Cubic Tangle"}>
 									<img className={"icon img-fluid"} width={32} height={32} src={"/icons/puzzle.png"}></img>
 									<span className={"menu-item-title"}>Cubic Tangle</span>
+								</Nav.Link>
+								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Pawsome Tank")} active={activeLink === "Pawsome Tank"}>
+									<img className={"icon img-fluid"} width={32} height={32} src={"/icons/tank.png"}></img>
+									<span className={"menu-item-title"}>Pawsome Tank</span>
 								</Nav.Link>
 							</Nav>
 						</div>

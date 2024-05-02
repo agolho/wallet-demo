@@ -239,12 +239,14 @@ video{
 	font-size: 3.05469vw;
 	margin-bottom: .89844vw;
 	z-index: 1;
+	text-shadow: 0px .42969vw 1.05469vw rgba(0, 0, 0, .5);
 }
 .home .description{
 	z-index: 1;
 	font-family: Poppins-Bold, sans-serif;
 	font-weight: 700;
 	color: #fff;
+	text-shadow: 0px .42969vw 1.05469vw rgba(0, 0, 0, .5);
 }
 .home h6{
 	display: block;
@@ -430,6 +432,17 @@ video{
 		z-index: -1;
 	}
 
+	#unity-container {
+		position: absolute;
+		z-index:100;
+	}
+
+	#unity-container.unity-desktop {
+		left: 50%;
+		top: 30%;
+		transform: translate(-30%, -50%);
+		z-index: 100;
+	}
 
 	.navigation-bar {
 		z-index: 1000;
@@ -517,8 +530,13 @@ video{
 		 position: fixed;
 		 top:0;
 	}
+	.nav{
+		flex-direction: row;
+	}
+
 }
 @media (min-width: 1240px) {
+
 	.navigation-bar {
 		width: 15.03906vw;
 		background: #1c1e2a;
@@ -530,6 +548,9 @@ video{
 		-webkit-box-orient: vertical;
 		-webkit-box-direction: normal;
 		-ms-flex-direction: column;
+		flex-direction: column;
+	}
+	.nav{
 		flex-direction: column;
 	}
 	.container-fluid{
@@ -558,12 +579,12 @@ video{
 /* Unity */
 
 #unity-container {
-	position: absolute;
+	position: fixed;
 	z-index:100;
 }
 #unity-container.unity-desktop {
-	left: 50%;
-	top: 15%;
+	left: 59%;
+	top: 50%;
 	transform: translate(-50%, -50%);
 	z-index: 100;
 }

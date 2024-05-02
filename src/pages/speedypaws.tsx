@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import Home from "@/pages/index";
 import {Button} from "react-bootstrap";
 import UnityComponent from "./unity";
 
@@ -12,7 +11,6 @@ const SpeedyPaws = ({ isAllowed, setUnityInstance }: { isAllowed: boolean, setUn
         gameIsActive= true;
         setIsGameVisible(true);
     };
-
 
     return (
         <div id="content-column" className="view">
@@ -50,7 +48,7 @@ const SpeedyPaws = ({ isAllowed, setUnityInstance }: { isAllowed: boolean, setUn
                                     )}
                                 </>
                             ) : (
-                                <div>Sorry, Speedy Paws content is only available to allowed users.</div>
+                                <div>Sorry, Speedy Paws is only available to NFT holders.</div>
                             )}
                         </div>
                     </div>

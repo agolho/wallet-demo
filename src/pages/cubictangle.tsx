@@ -1,9 +1,34 @@
-import React from "react";
+import React, {useState} from "react";
+import UnityComponent from "@/pages/unity";
+import {Button} from "react-bootstrap";
 
-const CubicTangle = ({ isAllowed }: { isAllowed: boolean }) => {
+const CubicTangle = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnityInstance: any }) => {
+    const [isGameVisible, setIsGameVisible] = useState(false);
+    let gameIsActive = false;
+    const handlePlayClick = () => {
+        if(gameIsActive) return;
+        gameIsActive= true;
+        setIsGameVisible(true);
+    };
+
     return (
         <div id="content-column" className="view">
             <div className={"content-inner"}>
+                <div>
+                    {isGameVisible ?(
+                        <UnityComponent
+                            gameName="Cubic Tangle"
+                            dataUrl="Data/Cubic/cubictangle.data"
+                            frameworkUrl="Data/Cubic/cubictangle.framework.js"
+                            codeUrl="Data/Cubic/cubictangle.wasm"
+                            scriptUrl="Data/Cubic/cubictangle.loader.js"
+                            setUnityInstance={setUnityInstance}
+                        />
+                    ) : (
+                        <></>
+                    )}
+                </div>
+
                 <div className="home">
                     <div className="background">
                         <img src={"/images/cube-tangle/gamebanner.png"} alt={"game banner"}></img>
@@ -13,9 +38,15 @@ const CubicTangle = ({ isAllowed }: { isAllowed: boolean }) => {
                     <div className={"description"}>
                         <div>
                             {isAllowed ? (
-                                <div> content for allowed users</div>
+                                <>
+                                    {isGameVisible ? (
+                                        <></>
+                                    ) : (
+                                        <Button onClick={handlePlayClick}>Play</Button>
+                                    )}
+                                </>
                             ) : (
-                                <div>Sorry,  content is only available to allowed users.</div>
+                                <div>Sorry, Cubic Tangle is only available to NFT holders.</div>
                             )}
                         </div>
                     </div>

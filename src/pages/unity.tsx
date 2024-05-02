@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import Home from "@/pages/index";
+import {useWallet} from "@solana/wallet-adapter-react";
 
 interface UnityProps {
     gameName: string;
@@ -12,6 +13,7 @@ interface UnityProps {
 
 const UnityComponent: React.FC<UnityProps> = ({ gameName, dataUrl, frameworkUrl, codeUrl, scriptUrl, setUnityInstance }) => {
     const unityContainerRef = useRef<HTMLDivElement>(null); // Ref to Unity container
+    const { publicKey } = useWallet();
 
     useEffect(() => {
         const container = unityContainerRef.current;
@@ -25,6 +27,7 @@ const UnityComponent: React.FC<UnityProps> = ({ gameName, dataUrl, frameworkUrl,
         // Check if the script has already been appended
         const existingScript = document.querySelector(`script[src="${scriptUrl}"]`);
         if (existingScript) {
+
             console.log("Script already exists, skipping appending.");
             return;
         }
@@ -47,6 +50,8 @@ const UnityComponent: React.FC<UnityProps> = ({ gameName, dataUrl, frameworkUrl,
             }).then((unityGameInstance: any) => {
                 (window as any).globalUnityInstance = unityGameInstance;
                 console.log(unityGameInstance);
+
+                unityGameInstance.SendMessage("GameManager", "SetUsername", publicKey.toString())
             });
         };
 
