@@ -136,6 +136,29 @@ video{
 	height: 100vh;
 	overflow: hidden;
 }
+.main-content-inside .homepage-titles{
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	top: 40%;
+	left: 40%;
+	font-family: Poppins, sans-serif;
+	color: white;
+}
+.main-content-inside .homepage-titles h1{
+	font-weight: 900;
+	font-size: 5vw;
+	text-shadow: rgba(0, 0, 0, 0.7) 4px 4px 1px ;
+}
+
+.main-content-inside .homepage-titles h3{
+	font-weight: 600;
+	font-size: 2vw;
+	text-shadow: rgba(0, 0, 0, 0.38) 2px 2px 1px ;
+
+}
 
 .navigation-bar {
 	z-index: 10000;
@@ -428,7 +451,7 @@ video{
 	margin-top: 2em;
 }
 
-
+/* Narrow Screen View */
 @media (max-width: 1240px) {
 	.home .background{
 		top: 0;
@@ -446,6 +469,12 @@ video{
 		-o-object-position: center;
 		object-position: center;
 		z-index: -1;
+	}
+
+	.main-content-inside .homepage-titles{
+		position: fixed;
+		top:40%;
+		left:33%;
 	}
 
 	#unity-container {
@@ -523,6 +552,8 @@ video{
 	}
 	.icon{
 		width: 10vw;
+		margin-left: 1vw;
+		padding-left: 1vw;
 	}
 	.nav-link{
 		display: flex;
@@ -531,8 +562,15 @@ video{
 		width: 20vw;
 
 	}
+	.nav-link .icon{
+		width: 10vw;
+		margin-left: 1vw;
+		padding-left: 1vw;
+	}
 	.menu-item-title{
-		padding: 1em;
+		display: flex;
+		padding: .4vw;
+		margin-left: -1.9vw;
 		margin-top: 1.36719vw;
 		font-size: 2.65625vw;
 		font-weight: 700;
@@ -700,6 +738,7 @@ video{
 	padding: 0 3.90625vw;
 	position: relative;
 	background: #0F1318;
+	overflow: hidden;
 }
 .scroll-slider .scroll-container:after{
 	right: 0;
