@@ -4,17 +4,26 @@ import { PublicKey } from "@solana/web3.js";
 
 const WhitelistComponent = () => {
     const publicKey = useWallet().publicKey;
-    const [whitelist, setWhitelist] = useState<string[]>([]);
+    const [whitelistFromFile, setWhitelistFromFile] = useState<string[]>([]);
+    const [whitelistFromEnv, setWhitelistFromEnv] = useState<string[]>([]);
 
     useEffect(() => {
+        // Fetch whitelist from whitelist.txt file
         fetch('/whitelist.txt') // Assuming whitelist.txt is in your public directory
             .then(response => response.text())
-            .then(data => setWhitelist(data.split('\n').map(line => line.trim())))
-            .catch(error => console.error('Error fetching whitelist:', error));
+            .then(data => setWhitelistFromFile(data.split('\n').map(line => line.trim())))
+            .catch(error => console.error('Error fetching whitelist from file:', error));
+
+        // Parse public keys from process.env.ALLOWED_WALLETS
+        const allowedWallets = process.env.ALLOWED_WALLETS?.split(',').map(key => key.trim());
+        setWhitelistFromEnv(allowedWallets || []);
     }, []);
 
-    // Check if the user's publicKey is in the whitelist
-    const isInWhitelist = whitelist.includes(publicKey?.toString() as string);
+    // Combine both whitelists
+    const combinedWhitelist = [...whitelistFromFile, ...whitelistFromEnv];
+
+    // Check if the user's publicKey is in the combined whitelist
+    const isInWhitelist = combinedWhitelist.includes(publicKey?.toString() as string);
 
     return (
         <div className={"whitelist"}>
@@ -29,3 +38,4 @@ const WhitelistComponent = () => {
 };
 
 export default WhitelistComponent;
+
