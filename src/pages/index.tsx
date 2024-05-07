@@ -2,7 +2,7 @@ import styles from "@/styles/Home.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Head from "next/head";
 import { Nav, Container } from "react-bootstrap";
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useCallback, useMemo} from "react";
 import {enqueueSnackbar, SnackbarProvider} from 'notistack/';
 
 import { config } from '@fortawesome/fontawesome-svg-core'
@@ -21,60 +21,46 @@ import { useRouter } from 'next/router';
 import PawsomeTank from "@/pages/pawsometank";
 import Ticketcounter from "@/pages/ticketcounter";
 
-export default function Home() {
-	const router = useRouter();
+import { collection, addDoc } from "firebase/firestore";
+import {initializeApp} from "@firebase/app";
+import {getFirestore} from "@firebase/firestore";
+import {getAuth, Auth} from "@firebase/auth";
 
-	const WalletMultiButtonDynamic = dynamic(
-		async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
-		{ ssr: false }
-	);
+import {verifySignIn} from "@solana/wallet-standard-util";
+import {SolanaSignInInput} from "@solana/wallet-standard-features";
+import {Adapter} from "@solana/wallet-adapter-base";
+import WhitelistComponent from "@/pages/whitelist";
 
 
-	const { connection } = useConnection();
-	const [balance, setBalance] = useState<number>(0);
-	const address = "3EqUrFrjgABCWAnqMYjZ36GcktiwDtFdkNYwY6C6cDzy";
-	const SignInDynamic = dynamic(async () =>
-		(await import('./SignIn')).SignIn, { ssr: false });
-
-	const [allowedWallets, setAllowedWallets] = useState<string[]>([]);
-	const [isAllowed, setIsAllowed] = useState(false);
-	const [toastShown, setToastShown] = useState(false);
-	const { publicKey } = useWallet();
-
-	useEffect(() => {
-		const allowedWalletsString = process.env.ALLOWED_WALLETS;
-		if (allowedWalletsString) {
-			const keys = allowedWalletsString.split(",").map(key => key.trim()).filter(Boolean);
-			setAllowedWallets(keys);
-		} else {
-			console.error(" environment variable is not defined");
-		}
-	}, []);
-
-	useEffect(() => {
-		setIsAllowed(allowedWallets.includes(publicKey?.toBase58() || ""));
-		if (publicKey && isAllowed && !toastShown) {
-			enqueueSnackbar('Welcome to SCT Premium', { variant: "success", anchorOrigin: { vertical: "bottom", horizontal: "right" } });
-			setToastShown(true);
-		}
-	}, [publicKey, allowedWallets]);
-
-	const [unityInstance, setUnityInstance] = useState<any>(null);
-
-	let globalUnityInstance = null;
-	// Function to handle Unity instance cleanup
-	const cleanupUnityInstance = () => {
-		console.log('Cleaning up Unity instance');
-
-		if((window as any).globalUnityInstance == null) {
-			console.warn("unity instance is null");
-		}
-		else {
-			(window as any).globalUnityInstance.Quit();
-			console.log('Unity instance cleaned up successfully');
-			(window as any).globalUnityInstance = null;
-		}
+async function addUser() {
+	const firebaseConfig = {
+		apiKey: "AIzaSyDx0s34dTsZTZXXE26qWSxIyIGCVqrAQHs",
+		authDomain: "strayhub-65a3f.firebaseapp.com",
+		projectId: "strayhub-65a3f",
+		storageBucket: "strayhub-65a3f.appspot.com",
+		messagingSenderId: "322139941913",
+		appId: "1:322139941913:web:bd2ebc51ebe8b905220e88",
+		measurementId: "G-YNYHYPW2XJ"
 	};
+
+	const app = initializeApp(firebaseConfig);
+	const db = getFirestore(app);
+
+	try {
+		const docRef = await addDoc(collection(db, "users"), {
+			first: "Ada",
+			last: "Lovelace",
+			born: 1815
+		});
+		console.log("Document written with ID: ", docRef.id);
+	} catch (e) {
+		console.error("Error adding document: ", e);
+	}
+}
+
+export default function Home() {
+	// ROUTER
+	const router = useRouter();
 
 	const [activeLink, setActiveLink] = useState("Homepage");
 
@@ -107,6 +93,75 @@ export default function Home() {
 		}
 	};
 
+	// WALLET
+
+	const WalletMultiButtonDynamic = dynamic(
+		async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
+		{ ssr: false }
+	);
+
+	const autoSignIn = useCallback(async (adapter: Adapter) => {
+		if (!('signIn' in adapter)) return true;
+
+		const input: SolanaSignInInput = {
+			domain: window.location.host,
+			address: adapter.publicKey ? adapter.publicKey.toBase58() : undefined,
+			statement: 'Please sign in.',
+		};
+		const output = await adapter.signIn(input);
+
+		if (!verifySignIn(input, output)) throw new Error('Sign In verification failed!');
+
+		return false;
+	}, []);
+
+	const { connection } = useConnection();
+	const [balance, setBalance] = useState<number>(0);
+	const address = "3EqUrFrjgABCWAnqMYjZ36GcktiwDtFdkNYwY6C6cDzy";
+	const SignInDynamic = dynamic(async () =>
+		(await import('./SignIn')).SignIn, { ssr: false });
+
+
+	const [allowedWallets, setAllowedWallets] = useState<string[]>([]);
+	const [isAllowed, setIsAllowed] = useState(false);
+	const [toastShown, setToastShown] = useState(false);
+	const { publicKey } = useWallet();
+
+	useEffect(() => {
+		const allowedWalletsString = process.env.ALLOWED_WALLETS;
+		if (allowedWalletsString) {
+			const keys = allowedWalletsString.split(",").map(key => key.trim()).filter(Boolean);
+			setAllowedWallets(keys);
+		} else {
+			console.error(" environment variable is not defined");
+		}
+	}, []);
+
+	useEffect(() => {
+		setIsAllowed(allowedWallets.includes(publicKey?.toBase58() || ""));
+		if (publicKey && isAllowed && !toastShown) {
+			enqueueSnackbar('Welcome to SCT Premium', { variant: "success", anchorOrigin: { vertical: "bottom", horizontal: "right" } });
+			setToastShown(true);
+		}
+	}, [publicKey, allowedWallets]);
+
+	// UNITY
+
+	const [unityInstance, setUnityInstance] = useState<any>(null);
+	let globalUnityInstance = null;
+	const cleanupUnityInstance = () => {
+		console.log('Cleaning up Unity instance');
+
+		if((window as any).globalUnityInstance == null) {
+			console.warn("unity instance is null");
+		}
+		else {
+			(window as any).globalUnityInstance.Quit();
+			console.log('Unity instance cleaned up successfully');
+			(window as any).globalUnityInstance = null;
+		}
+	};
+
 	return (
 		<>
 			<SnackbarProvider
@@ -134,7 +189,9 @@ export default function Home() {
 				<div className={styles.header}>
 					<div></div>
 					<div className={styles.buttons}>
-						<WalletMultiButtonDynamic />
+
+						<WalletMultiButtonDynamic/>
+
 					</div>
 				</div>
 			</header>
@@ -150,12 +207,16 @@ export default function Home() {
 								</a>
 							</div>
 							<Nav defaultActiveKey="/home" className=" navigation-menu">
+
 								<div className={"menu-wallet-connect"}>
+
 									<Nav.Link className={"nav-link"}>
-										<WalletMultiButtonDynamic />
+											<WalletMultiButtonDynamic/>
+
 									</Nav.Link>
 								</div>
 								<Ticketcounter></Ticketcounter>
+
 								<Nav.Link className={"nav-link"} href="#" onClick={() => handleLinkClick("Speedy Paws")} active={activeLink === "Speedy Paws"}>
 									<img className={"icon img-fluid"} width={32} height={32} src={"/icons/car.png"}></img>
 									<span className={"menu-item-title"}>Speedy Paws</span>
@@ -176,6 +237,9 @@ export default function Home() {
 									<img className={"icon img-fluid"} width={32} height={32} src={"/icons/tank.png"}></img>
 									<span className={"menu-item-title"}>Pawsome Tank</span>
 								</Nav.Link>
+
+								<WhitelistComponent></WhitelistComponent>
+
 							</Nav>
 							<div className={"connectLinks"}>
 								<div className={"items"}>
