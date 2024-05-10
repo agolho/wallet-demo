@@ -174,9 +174,9 @@ export default function Home() {
 				}
 			`}</style>
 			<Head>
-				<title>SCT Game HUB</title>
+				<title>SCTHUB - StrayHUB</title>
 				<meta
-					name="Official Game HUB of StrayCatTribe"
+					name="Official Game HUB of StrayCatTribe, SCT HUB"
 					content="Powered by On Off Games"
 				/>
 				<meta
