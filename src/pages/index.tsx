@@ -30,6 +30,7 @@ import {verifySignIn} from "@solana/wallet-standard-util";
 import {SolanaSignInInput} from "@solana/wallet-standard-features";
 import {Adapter} from "@solana/wallet-adapter-base";
 import WhitelistComponent from "@/pages/whitelist";
+import FreeStrayComponent from "@/pages/freestray";
 
 
 async function addUser() {
@@ -174,7 +175,7 @@ export default function Home() {
 				}
 			`}</style>
 			<Head>
-				<title>SCTHUB - StrayHUB</title>
+				<title>StrayHUB - SCT HUB</title>
 				<meta
 					name="Official Game HUB of StrayCatTribe, SCT HUB"
 					content="Powered by On Off Games"
@@ -239,6 +240,7 @@ export default function Home() {
 								</Nav.Link>
 
 								<WhitelistComponent></WhitelistComponent>
+								<FreeStrayComponent></FreeStrayComponent>
 
 							</Nav>
 							<div className={"connectLinks"}>

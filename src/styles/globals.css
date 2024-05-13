@@ -610,6 +610,14 @@ video{
 		width: 10vw;
 		padding-top: 0;
 	}
+	.freelist{
+		position: fixed;
+		top: 10em;
+		right: 1em;
+		padding-right: 1em;
+		width: 10vw;
+		padding-top: 0;
+	}
 }
 @media (min-width: 1240px) {
 
@@ -706,6 +714,16 @@ video{
 	padding-top: 2em;
 }
 
+.freelist{
+	display: flex;
+	flex-direction: row;
+	text-align: center;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+	padding-top: 2em;
+}
+
 .wlBadge{
 	background-color: rgba(255, 255, 255, 0.78);
 	color: #1d1f2a;
@@ -716,11 +734,25 @@ video{
 	font-family: Poppins, sans-serif;
 	font-weight: 600;
 }
-.wlBadge:hover{
+.wlBadge:hover {
 	background-color: rgb(255, 255, 255);
-.wlText{
-	margin-top: 4vw;
 }
+	.wlText {
+		margin-top: 4vw;
+	}
+
+.fsBadge{
+	background-color: rgba(255, 255, 255, 0.78);
+	color: #1d1f2a;
+	border-radius: 10px;
+	padding: .2em;
+	padding-left: 1em;
+	padding-right: 1em;
+	font-family: Poppins, sans-serif;
+	font-weight: 600;
+}
+.fsBadge:hover{
+	background-color: rgb(255, 255, 255);
 }
 
 .connectLinks{
