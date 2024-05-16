@@ -62,8 +62,8 @@ const SpeedyPaws = ({ isAllowed, setUnityInstance }: { isAllowed: boolean, setUn
                                     )}
                                 </>
                             ) : (
-                                <div className={"playButton"}>
-                                    <Button>Connect a valid wallet to Play</Button>
+                                <div className={"siteMessage"}>
+                                    You need <a href={"https://magiceden.io/launchpad/stray_cat_tribe"}>SCT NFT</a>  to Play.
                                 </div>
                             )}
                         </div>

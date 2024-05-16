@@ -450,6 +450,16 @@ video{
 .playButton{
 	margin-top: 2em;
 }
+.siteMessage{
+	margin-top: 2em;
+	background-color: rgba(0, 0, 0, 0.58);
+	padding: 2em;
+	border-radius: 25px;
+}
+.siteMessage a{
+	color: orange;
+	text-decoration: none;
+}
 
 /* Narrow Screen View */
 @media (max-width: 1240px) {

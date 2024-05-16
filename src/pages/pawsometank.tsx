@@ -38,11 +38,9 @@ const PawsomeTank = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
                     <h6 className={"title"}>Pawsome Tank</h6>
                     <div className={"description"}>Boom!</div>
                     <div className={"description"}>
-                        <div className={"playButton"}>
-                            <Button>
-                                Coming Soon
-                            </Button>
-                            </div>
+                        <div className={"siteMessage"}>
+                            Coming Soon!
+                        </div>
                     </div>
                 </div>
                 <div className="standard">
