@@ -118,7 +118,7 @@ export default function Home() {
 
 	const { connection } = useConnection();
 	const [balance, setBalance] = useState<number>(0);
-	const address = "3EqUrFrjgABCWAnqMYjZ36GcktiwDtFdkNYwY6C6cDzy";
+	const address = "3JrbCVKzSevkW1CUrJtHNLiNa1zD8MXeKnVsyXQFcJBM";
 	const SignInDynamic = dynamic(async () =>
 		(await import('./SignIn')).SignIn, { ssr: false });
 

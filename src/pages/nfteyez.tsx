@@ -14,7 +14,7 @@ const NftEyez = ({ walletPublicKey, nftCollectionId }: { walletPublicKey: string
 
                 const ownerPublicKey = new PublicKey(walletPublicKey);
                 const tokenAccounts = await connection.getParsedTokenAccountsByOwner(ownerPublicKey, {
-                    programId: new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'), // Solana SPL Token program ID
+                    programId: new PublicKey('3JrbCVKzSevkW1CUrJtHNLiNa1zD8MXeKnVsyXQFcJBM'), // Solana SPL Token program ID
                 });
 
                 // Filter NFT accounts by collection ID
