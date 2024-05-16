@@ -674,7 +674,7 @@ video{
 .unityBackground{
 	background-color: #1d1f2a;
 	width: 100%;
-	height: 100%;
+	height: 1000vw;
 	position: fixed;
 	z-index: 10000;
 }
