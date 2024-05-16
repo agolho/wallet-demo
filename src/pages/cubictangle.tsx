@@ -33,14 +33,9 @@ const CubicTangle = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
             <div className={"content-inner"}>
                 <div>
                     {isGameVisible ?(
-                        <UnityComponent
-                            gameName="Cubic Tangle"
-                            dataUrl="Data/Cubic/cubictangle.data"
-                            frameworkUrl="Data/Cubic/cubictangle.framework.js"
-                            codeUrl="Data/Cubic/cubictangle.wasm"
-                            scriptUrl="Data/Cubic/cubictangle.loader.js"
-                            setUnityInstance={setUnityInstance}
-                        />
+                        <div className={"unityBackground"}>
+                            <iframe src="Games/cubictangle/index.html" width="100%" height="1000vw" title="Cubic Tangle"></iframe>
+                        </div>
                     ) : (
                         <></>
                     )}

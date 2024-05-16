@@ -33,14 +33,9 @@ const KittyKaboom = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setU
             <div className={"content-inner"}>
                 <div>
                     {isGameVisible ?(
-                        <UnityComponent
-                            gameName="KittyKaboom"
-                            dataUrl="Data/Kitty/kittykaboom.data.unityweb"
-                            frameworkUrl="Data/Kitty/kittykaboom.framework.js.unityweb"
-                            codeUrl="Data/Kitty/kittykaboom.wasm.unityweb"
-                            scriptUrl="Data/Kitty/kittykaboom.loader.js"
-                            setUnityInstance={setUnityInstance}
-                        />
+                        <div className={"unityBackground"}>
+                            <iframe src="Games/kittykaboom/index.html" width="100%" height="1000vw" title="Cubic Tangle"></iframe>
+                        </div>
                     ) : (
                         <></>
                     )}

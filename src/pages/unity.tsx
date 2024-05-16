@@ -80,6 +80,7 @@ const UnityComponent: React.FC<UnityProps> = ({ gameName, dataUrl, frameworkUrl,
         }
     }
 
+
     return (
         <div ref={backgroundRef} className={"unityBackground"}>
             <div ref={closeButtonRef} className={"closeButton"}>

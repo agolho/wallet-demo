@@ -35,14 +35,9 @@ const FlyKitty = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnit
             <div className={"content-inner"}>
                 <div>
                     {isGameVisible ?(
-                        <UnityComponent
-                            gameName="Fly Kitty"
-                            dataUrl="Data/Planes/planes.data.unityweb"
-                            frameworkUrl="Data/Planes/planes.framework.js.unityweb"
-                            codeUrl="Data/Planes/planes.wasm.unityweb"
-                            scriptUrl="Data/Planes/planes.loader.js"
-                            setUnityInstance={setUnityInstance}
-                        />
+                        <div className={"unityBackground"}>
+                            <iframe src="Games/flykitty/index.html" width="100%" height="1000vw" title="Cubic Tangle"></iframe>
+                        </div>
                     ) : (
                         <></>
                     )}
@@ -76,8 +71,6 @@ const FlyKitty = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnit
                 <div className="standard">
                     <div className="tab-container">
                         <h6 className="title">Game Details</h6>
-
-
                         <div className="total"><p >Game Genre</p>
                             <span >Racing</span>
                         </div>

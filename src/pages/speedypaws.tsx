@@ -34,14 +34,9 @@ const SpeedyPaws = ({ isAllowed, setUnityInstance }: { isAllowed: boolean, setUn
             <div className={"content-inner"}>
                 <div>
                     {isGameVisible ?(
-                        <UnityComponent
-                            gameName="SpeedyPaws"
-                            dataUrl="Data/Speedy/speedypaws.data.unityweb"
-                            frameworkUrl="Data/Speedy/speedypaws.framework.js.unityweb"
-                            codeUrl="Data/Speedy/speedypaws.wasm.unityweb"
-                            scriptUrl="Data/Speedy/speedypaws.loader.js"
-                            setUnityInstance={setUnityInstance}
-                        />
+                        <div className={"unityBackground"}>
+                        <iframe src="Games/speedypaws/index.html" width="100%" height="1000vw" title="Speedy Paws Game"></iframe>
+                        </div>
                     ) : (
                         <></>
                     )}
