@@ -450,6 +450,10 @@ video{
 .playButton{
 	margin-top: 2em;
 }
+.playButton button{
+	min-width: 15em;
+	min-height: 3em;
+}
 .siteMessage{
 	margin-top: 2em;
 	background-color: rgba(0, 0, 0, 0.58);
