@@ -56,6 +56,8 @@ const UnityComponent: React.FC<UnityProps> = ({ gameName, dataUrl, frameworkUrl,
                 console.log(unityGameInstance);
 
                 if(publicKey != null) unityGameInstance.SendMessage("GameManager", "SetUsername", publicKey.toString())
+
+                unityFullScreen();
             });
         };
 
@@ -86,7 +88,7 @@ const UnityComponent: React.FC<UnityProps> = ({ gameName, dataUrl, frameworkUrl,
             </Button>
             </div>
             <div ref={unityContainerRef} id="unity-container" className="unity-desktop">
-                <canvas id="unity-canvas" width="960" height="600"></canvas>
+                <canvas id="unity-canvas" width="1280" height="720"></canvas>
                 <div id="unity-loading-bar">
                     <div id="unity-logo">
                         <img src={"/TemplateData/unity-logo-dark.png"}></img>
