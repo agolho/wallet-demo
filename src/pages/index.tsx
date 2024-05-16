@@ -245,6 +245,11 @@ export default function Home() {
 							</Nav>
 							<div className={"connectLinks"}>
 								<div className={"items"}>
+									<a href={"https://magiceden.io/launchpad/stray_cat_tribe"}>
+										<img className={"icon img-fluid"} width={30} height={30} src={"/icons/magiceden.png"}></img>
+										<span>Magic Eden
+										</span>
+									</a>
 									<a href={"https://discord.gg/straycattribe"}>
 										<img className={"icon img-fluid"} width={30} height={30} src={"/icons/discord.png"}></img>
 										<span>Join Discord
