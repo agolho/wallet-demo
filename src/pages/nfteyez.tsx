@@ -1,39 +1,39 @@
-import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-import { Connection, PublicKey } from "@solana/web3.js";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { resolveToWalletAddress, getParsedNftAccountsByOwner } from "@nfteyez/sol-rayz";
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
+import { clusterApiUrl, Connection } from "@solana/web3.js";
 
-const NftEyez = ({ walletPublicKey, nftCollectionId }: { walletPublicKey: string, nftCollectionId: string }) => {
-    const { connection } = useConnection();
+const NftEyez = ({ walletPublicKey }: { walletPublicKey: string }) => {
+    const [network] = useState(WalletAdapterNetwork.Mainnet);
+    const connection = useMemo(() => new Connection(clusterApiUrl(network)), [network]);
     const { publicKey } = useWallet();
-    const [hasNftFromCollection, setHasNftFromCollection] = useState(false);
+    const [nftAccounts, setNftAccounts] = useState<any[]>([]);
 
     useEffect(() => {
         const fetchNFTAccounts = async () => {
             try {
-                if (!publicKey) return;
+                if (!walletPublicKey) return;
 
-                const ownerPublicKey = new PublicKey(walletPublicKey);
-                const tokenAccounts = await connection.getParsedTokenAccountsByOwner(ownerPublicKey, {
-                    programId: new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'), // Solana SPL Token program ID
-                });
+                const publicAddress = await resolveToWalletAddress({ text: walletPublicKey });
 
-                // Filter NFT accounts by collection ID
-                const nftAccountsInCollection = tokenAccounts.value.filter((account) => {
-                    return account.account.data.parsed.info.mint === nftCollectionId;
-                });
+                const nftArray = await getParsedNftAccountsByOwner({ publicAddress, connection });
 
-                // Check if at least one NFT from the collection is found
-                const hasNftFromCollection = nftAccountsInCollection.length > 0;
-                setHasNftFromCollection(hasNftFromCollection);
+                console.log('NFT Accounts:', nftArray);
+
+                // Store the NFT accounts in state
+                setNftAccounts(nftArray);
             } catch (error) {
                 console.error('Error occurred while fetching Solana NFT list:', error);
             }
         };
 
-        fetchNFTAccounts().then(r => {});
-    }, [connection, walletPublicKey, publicKey, nftCollectionId]);
+        fetchNFTAccounts();
+    }, [connection, walletPublicKey]);
 
-    return hasNftFromCollection;
+    return (
+       <></>
+    );
 };
 
 export default NftEyez;

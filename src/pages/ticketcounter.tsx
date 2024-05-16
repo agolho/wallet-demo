@@ -2,12 +2,16 @@ import React from 'react';
 import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js"; // Import PublicKey
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import {Button} from "react-bootstrap";
 
 const TicketCounter = () => {
     const publicKey = useWallet().publicKey;
 
     // Check if publicKey is not null
     const showCounter = publicKey !== null;
+
+
+
 
     return (
         <div className="ticketCounter">

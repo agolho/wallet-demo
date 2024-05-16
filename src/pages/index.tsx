@@ -25,6 +25,7 @@ import { collection, addDoc } from "firebase/firestore";
 import {initializeApp} from "@firebase/app";
 import {getFirestore} from "@firebase/firestore";
 import {getAuth, Auth} from "@firebase/auth";
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 import {verifySignIn} from "@solana/wallet-standard-util";
 import {SolanaSignInInput} from "@solana/wallet-standard-features";
@@ -200,7 +201,7 @@ export default function Home() {
 				<Container className={"homepage"} fluid>
 					<div className="content-container">
 						<div className="navigation-bar ">
-							<NftEyez walletPublicKey={publicKey?.toBase58() || ''} nftCollectionId={address} />
+							<NftEyez walletPublicKey={publicKey?.toBase58() || ''}/>
 							{/* Sidebar navigation */}
 							<div className={"sitelogo"}>
 								<a href={"#"} onClick={() => handleLinkClick("Homepage")}>
