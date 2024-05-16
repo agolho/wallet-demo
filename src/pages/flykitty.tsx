@@ -5,8 +5,10 @@ import Scrollslider from "@/pages/scrollslider";
 
 const FlyKitty = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnityInstance: any }) => {
 
+
     const [isGameVisible, setIsGameVisible] = useState(false);
 
+    isAllowed = true;
     let gameIsActive =false;
     const handlePlayClick = () => {
         if(gameIsActive) return;
