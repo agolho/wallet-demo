@@ -98,48 +98,7 @@ export default function Home() {
 
 	// Solana web3 Querry
 
-	const connectionMainnet = new Connection('https://solana-mainnet.api.syndica.io/api-token/2s53Y9XjuXWjz165ShK3iVwNeNoufmE9HwTVPprYJ2P49sEkNNntnRHMdDjLypn6mDwFRqpQsad2QwKMRfgLEuSX3chj7XVtkNhBF4vMwoimkjVB3xAEMt2fcNwVoUCsu4q6RCQS3AdEGqdtPCre4aPjhcXnUT4wYNB1ummt4z7FWUScvxCiP7ypSHE6Nux9nrmEMVimQtsiaHhxHKN7efBnefYTzNyqJ3B6c4YbuuRqcDY4cSZVYk4H7V4MRYqXfU4xHCWssyWqheuqM9GApPHrAU6SsonkkF2w5bUMG5sVnvgzuTNnK89QsMBhuw2igtbMzaw9jXnX2DpGhEZvBkLFPia4eZZtRpRXVu8zfpaRP4cz4w3ARByYVBrXM39RGj9M11zVNYn7f6nnsL8kXHkmu4RwdVvEDqUy8Qj1v6XR9ZxPWofZVCvgmr39wyzmvuw8ag3gYQhBKHNB7S6mR3dxF3zoHrBywCVZtdBzv9bKWbdNwzEgBGU5RUqHq \\');
 
-// Example: Get the current slot
-	connectionMainnet.getSlot().then(slot => {
-		//console.log('Current slot:', slot);
-	}).catch(error => {
-		//console.error('Error:', error);
-	});
-
-// Now use connectionMainnet instead of solanaWeb3Connection
-	const solanaWeb3Connection = useMemo(() => connectionMainnet, []);
-
-	const fetchNFTsByOwner = useCallback(async () => {
-		if (!publicKey) return;
-
-		try {
-			const ownerPublicKey = new PublicKey(publicKey.toBase58());
-
-			const tokenAccounts = await solanaWeb3Connection.getTokenAccountsByOwner(
-				ownerPublicKey,
-				{ programId: TOKEN_PROGRAM_ID },
-				'confirmed'
-			);
-
-			console.log('Token Accounts:', tokenAccounts); // Log the token accounts data
-
-			const nftTokenAccounts = tokenAccounts.value.filter(account => {
-				// Check if the account represents an NFT (usually has a balance of 1)
-				if (
-					account.account.data.length > 0 && // Check if data is present
-					account.account.data.readUInt8(0) === 1 // Check if data represents an NFT
-				) {
-					return true;
-				}
-				return false;
-			});
-
-			console.log('NFT Token Accounts:', nftTokenAccounts); // Log the filtered NFT token accounts
-		} catch (error) {
-			console.error('Error fetching NFT token accounts:', error);
-		}
-	}, [publicKey, solanaWeb3Connection]);
 
 
 	const savePublicKeyToLocalStorage = ({WalletID}: { WalletID: any }) => {
@@ -149,7 +108,7 @@ export default function Home() {
 	useEffect(() => {
 		if (publicKey) {
 			savePublicKeyToLocalStorage({WalletID: publicKey.toString()});
-			fetchNFTsByOwner();
+			//fetchNFTsByOwner();
 		}
 	}, [publicKey]);
 
