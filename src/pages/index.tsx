@@ -15,7 +15,8 @@ import KittyKaboom from "@/pages/kittykaboom";
 import FlyKitty from "@/pages/flykitty";
 import Cubictangle from "@/pages/cubictangle";
 import dynamic from "next/dynamic";
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { useConnection, useWallet  } from "@solana/wallet-adapter-react";
+import * as solanaWeb3 from "@solana/web3.js"
 import NftEyez from "@/pages/nfteyez";
 import { useRouter } from 'next/router';
 import PawsomeTank from "@/pages/pawsometank";
@@ -32,6 +33,10 @@ import {SolanaSignInInput} from "@solana/wallet-standard-features";
 import {Adapter} from "@solana/wallet-adapter-base";
 import WhitelistComponent from "@/pages/whitelist";
 import FreeStrayComponent from "@/pages/freestray";
+import {Connection, PublicKey} from "@solana/web3.js";
+import {undefined} from "zod";
+import {address} from "@trezor/utxo-lib";
+import {TOKEN_PROGRAM_ID} from "@solana/spl-token";
 
 export default function Home() {
 	// ROUTER
@@ -69,25 +74,14 @@ export default function Home() {
 	};
 
 	// WALLET
+
+
+
+
 	const WalletMultiButtonDynamic = dynamic(
 		async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
 		{ ssr: false }
 	);
-
-	const autoSignIn = useCallback(async (adapter: Adapter) => {
-		if (!('signIn' in adapter)) return true;
-
-		const input: SolanaSignInInput = {
-			domain: window.location.host,
-			address: adapter.publicKey ? adapter.publicKey.toBase58() : undefined,
-			statement: 'Please sign in.',
-		};
-		const output = await adapter.signIn(input);
-
-		if (!verifySignIn(input, output)) throw new Error('Sign In verification failed!');
-
-		return false;
-	}, []);
 
 	const { connection } = useConnection();
 	const [balance, setBalance] = useState<number>(0);
@@ -100,6 +94,54 @@ export default function Home() {
 	const [isAllowed, setIsAllowed] = useState(false);
 	const [toastShown, setToastShown] = useState(false);
 	const { publicKey } = useWallet();
+
+
+	// Solana web3 Querry
+
+	const connectionMainnet = new Connection('https://solana-mainnet.api.syndica.io/api-token/2s53Y9XjuXWjz165ShK3iVwNeNoufmE9HwTVPprYJ2P49sEkNNntnRHMdDjLypn6mDwFRqpQsad2QwKMRfgLEuSX3chj7XVtkNhBF4vMwoimkjVB3xAEMt2fcNwVoUCsu4q6RCQS3AdEGqdtPCre4aPjhcXnUT4wYNB1ummt4z7FWUScvxCiP7ypSHE6Nux9nrmEMVimQtsiaHhxHKN7efBnefYTzNyqJ3B6c4YbuuRqcDY4cSZVYk4H7V4MRYqXfU4xHCWssyWqheuqM9GApPHrAU6SsonkkF2w5bUMG5sVnvgzuTNnK89QsMBhuw2igtbMzaw9jXnX2DpGhEZvBkLFPia4eZZtRpRXVu8zfpaRP4cz4w3ARByYVBrXM39RGj9M11zVNYn7f6nnsL8kXHkmu4RwdVvEDqUy8Qj1v6XR9ZxPWofZVCvgmr39wyzmvuw8ag3gYQhBKHNB7S6mR3dxF3zoHrBywCVZtdBzv9bKWbdNwzEgBGU5RUqHq \\');
+
+// Example: Get the current slot
+	connectionMainnet.getSlot().then(slot => {
+		//console.log('Current slot:', slot);
+	}).catch(error => {
+		//console.error('Error:', error);
+	});
+
+// Now use connectionMainnet instead of solanaWeb3Connection
+	const solanaWeb3Connection = useMemo(() => connectionMainnet, []);
+
+	const fetchNFTsByOwner = useCallback(async () => {
+		if (!publicKey) return;
+
+		try {
+			const ownerPublicKey = new PublicKey(publicKey.toBase58());
+
+			const tokenAccounts = await solanaWeb3Connection.getTokenAccountsByOwner(
+				ownerPublicKey,
+				{ programId: TOKEN_PROGRAM_ID },
+				'confirmed'
+			);
+
+			console.log('Token Accounts:', tokenAccounts); // Log the token accounts data
+
+			const nftTokenAccounts = tokenAccounts.value.filter(account => {
+				// Check if the account represents an NFT (usually has a balance of 1)
+				if (
+					account.account.data.length > 0 && // Check if data is present
+					account.account.data.readUInt8(0) === 1 // Check if data represents an NFT
+				) {
+					return true;
+				}
+				return false;
+			});
+
+			console.log('NFT Token Accounts:', nftTokenAccounts); // Log the filtered NFT token accounts
+		} catch (error) {
+			console.error('Error fetching NFT token accounts:', error);
+		}
+	}, [publicKey, solanaWeb3Connection]);
+
+
 	const savePublicKeyToLocalStorage = ({WalletID}: { WalletID: any }) => {
 		localStorage.setItem('publicKey', WalletID);
 	};
@@ -107,6 +149,7 @@ export default function Home() {
 	useEffect(() => {
 		if (publicKey) {
 			savePublicKeyToLocalStorage({WalletID: publicKey.toString()});
+			fetchNFTsByOwner();
 		}
 	}, [publicKey]);
 
@@ -184,7 +227,7 @@ export default function Home() {
 				<Container className={"homepage"} fluid>
 					<div className="content-container">
 						<div className="navigation-bar ">
-							<NftEyez walletPublicKey={publicKey?.toBase58() || ''}/>
+
 							{/* Sidebar navigation */}
 							<div className={"sitelogo"}>
 								<a href={"#"} onClick={() => handleLinkClick("Homepage")}>
