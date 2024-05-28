@@ -98,6 +98,40 @@ export default function Home() {
 
 	// Solana web3 Querry
 
+	async function fetchTokenAccountsByOwner() {
+		try {
+			const response = await fetch('https://solana-mainnet.api.syndica.io/', {
+				method: 'POST',
+				headers: {
+					"Content-Type": "application/json",
+					"X-Syndica-Api-Token": "2s53Y9XjuXWjz165ShK3iVwNeNoufmE9HwTVPprYJ2P49sEkNNntnRHMdDjLypn6mDwFRqpQsad2QwKMRfgLEuSX3chj7XVtkNhBF4vMwoimkjVB3xAEMt2fcNwVoUCsu4q6RCQS3AdEGqdtPCre4aPjhcXnUT4wYNB1ummt4z7FWUScvxCiP7ypSHE6Nux9nrmEMVimQtsiaHhxHKN7efBnefYTzNyqJ3B6c4YbuuRqcDY4cSZVYk4H7V4MRYqXfU4xHCWssyWqheuqM9GApPHrAU6SsonkkF2w5bUMG5sVnvgzuTNnK89QsMBhuw2igtbMzaw9jXnX2DpGhEZvBkLFPia4eZZtRpRXVu8zfpaRP4cz4w3ARByYVBrXM39RGj9M11zVNYn7f6nnsL8kXHkmu4RwdVvEDqUy8Qj1v6XR9ZxPWofZVCvgmr39wyzmvuw8ag3gYQhBKHNB7S6mR3dxF3zoHrBywCVZtdBzv9bKWbdNwzEgBGU5RUqHq"
+				},
+				body: JSON.stringify({
+					jsonrpc: '2.0',
+					id: 1,
+					method: 'getTokenAccountsByOwner',
+					params: [
+						'4Qkev8aNZcqFNSRhQzwyLMFSsi94jHqE8WNVTJzTP99F',
+						{
+							mint: '3wyAj7Rt1TWVPZVteFJPLa26JmLvdb1CAKEFZm3NY75E'
+						},
+						{
+							encoding: 'jsonParsed'
+						}
+					]
+				})
+			});
+
+			const data = await response.json();
+			console.log('Response:', data);
+			// Process the response data here
+		} catch (error) {
+			console.error('Error:', error);
+		}
+	}
+
+
+
 
 
 
@@ -108,7 +142,7 @@ export default function Home() {
 	useEffect(() => {
 		if (publicKey) {
 			savePublicKeyToLocalStorage({WalletID: publicKey.toString()});
-			//fetchNFTsByOwner();
+			fetchTokenAccountsByOwner().then(r => {});
 		}
 	}, [publicKey]);
 
