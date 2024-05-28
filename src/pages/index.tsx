@@ -33,33 +33,6 @@ import {Adapter} from "@solana/wallet-adapter-base";
 import WhitelistComponent from "@/pages/whitelist";
 import FreeStrayComponent from "@/pages/freestray";
 
-
-async function addUser() {
-	const firebaseConfig = {
-		apiKey: "AIzaSyDx0s34dTsZTZXXE26qWSxIyIGCVqrAQHs",
-		authDomain: "strayhub-65a3f.firebaseapp.com",
-		projectId: "strayhub-65a3f",
-		storageBucket: "strayhub-65a3f.appspot.com",
-		messagingSenderId: "322139941913",
-		appId: "1:322139941913:web:bd2ebc51ebe8b905220e88",
-		measurementId: "G-YNYHYPW2XJ"
-	};
-
-	const app = initializeApp(firebaseConfig);
-	const db = getFirestore(app);
-
-	try {
-		const docRef = await addDoc(collection(db, "users"), {
-			first: "Ada",
-			last: "Lovelace",
-			born: 1815
-		});
-		console.log("Document written with ID: ", docRef.id);
-	} catch (e) {
-		console.error("Error adding document: ", e);
-	}
-}
-
 export default function Home() {
 	// ROUTER
 	const router = useRouter();
@@ -96,7 +69,6 @@ export default function Home() {
 	};
 
 	// WALLET
-
 	const WalletMultiButtonDynamic = dynamic(
 		async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
 		{ ssr: false }
@@ -128,6 +100,17 @@ export default function Home() {
 	const [isAllowed, setIsAllowed] = useState(false);
 	const [toastShown, setToastShown] = useState(false);
 	const { publicKey } = useWallet();
+	const savePublicKeyToLocalStorage = ({WalletID}: { WalletID: any }) => {
+		localStorage.setItem('publicKey', WalletID);
+	};
+
+	useEffect(() => {
+		if (publicKey) {
+			savePublicKeyToLocalStorage({WalletID: publicKey.toString()});
+		}
+	}, [publicKey]);
+
+
 
 	useEffect(() => {
 		const allowedWalletsString = process.env.ALLOWED_WALLETS;
