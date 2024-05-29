@@ -25,11 +25,12 @@ import Ticketcounter from "@/pages/ticketcounter";
 
 import WhitelistComponent from "@/pages/whitelist";
 import FreeStrayComponent from "@/pages/freestray";
-import {Connection, Keypair, PublicKey} from "@solana/web3.js";
 import {TOKEN_PROGRAM_ID} from "@solana/spl-token";
-import {keypairIdentity, Metaplex} from "@metaplex-foundation/js";
+
+
 
 export default function Home() {
+
 	// ROUTER
 	const router = useRouter();
 
@@ -75,21 +76,22 @@ export default function Home() {
 	const [toastShown, setToastShown] = useState(false);
 	const {publicKey} = useWallet();
 
+
+
+	// Solana web3 Querry
 	interface NFT {
 		account: {
 			data: {
 				parsed: {
 					info: {
-						mint: string; // Assuming mint is a string, adjust as needed
-						// Add other properties here if needed
+						mint: string;
+
 					}
 				}
 			}
 		}
-		// Add other properties here if needed
 	}
 
-	// Solana web3 Querry
 	async function fetchTokenAccountsByOwner() {
 		try {
 			const response = await fetch('https://solana-mainnet.api.syndica.io/api-token/5Lziijebr419MgBrAyxADJAHnEWPswzt58i79gnBiV8ArJNs1iSarC7GisoU4yFDeHfYC3GE6oD5pYw63d8CowVTLnw84PaEebfu9LUdH7SbJAwZvu3vrVKgYPHh19AeRUewRNZrGfz8QgZHeBuGn1gahKmTF6pz7AraRFiWtD5x92D2Jr7Rzp1Sh5gmuaKroacj3j9v7coB2SdRtGqaBf5rWgouNR5ANVjEjALD5Cw1H73ALncSMBXtqc64tdWwrKg38BcaMLGzidrbZZRcWWuPhxmpkvrAnFAsdi94c7nJM4d7F2ufrXWmkJkJ7PzpoF4SJqjVMo6EFGjJBVxQroTpDBDmcgWT96con1ynn9RHEzC8xKLw7TqqzcSHkC42t1HwD9PkupGhEALe8Fkf8X5wjk34vzuFVFYrR1orRdbCzn9JsSpBciJekkbmnEweaHJW4KcUhYuAtaGxWAbi8RHdbaW2RKxqmr844ECB8EKaqZPhJu8ztBVTwpBNxg1dGKeH5XKxSMMwGRGrDJC7vqoG', {
@@ -113,7 +115,6 @@ export default function Home() {
 					]
 				})
 			});
-
 			const responseBody = await response.text();
 			const responseData = JSON.parse(responseBody);
 			const nftArray = responseData.result.value;
@@ -150,8 +151,6 @@ export default function Home() {
 		}
 	}, [publicKey]);
 
-
-
 	useEffect(() => {
 		const allowedWalletsString = process.env.ALLOWED_WALLETS;
 		if (allowedWalletsString) {
@@ -161,15 +160,6 @@ export default function Home() {
 			console.error(" environment variable is not defined");
 		}
 	}, []);
-
-	useEffect(() => {
-		setIsAllowed(allowedWallets.includes(publicKey?.toBase58() || ""));
-		if (publicKey && isAllowed && !toastShown) {
-			enqueueSnackbar('Welcome to SCT Premium', { variant: "success", anchorOrigin: { vertical: "bottom", horizontal: "right" } });
-			setToastShown(true);
-		}
-	}, [publicKey, allowedWallets]);
-
 
 	return (
 		<>

@@ -885,6 +885,34 @@ video{
 .progress .progress-bar{
 	background-color: #ef7309;
 }
+
+.leaderboard-container{
+	position: relative;
+	padding-left: 3em;
+}
+.leaderboard{
+	color: white;
+	padding: 2em 2em 2em;
+	justify-content: center;
+
+}
+.leaderboard table{
+	background-color: #1d1f2a;
+	border-radius: 25px;
+	padding: 1em 1em 3em;
+}
+.leaderboard thead{
+	background-color: #15191e;
+	border-radius: 25px;
+	padding: 2em;
+}
+.leaderboard table tr{
+	padding: 2em 2em;
+
+}
+.leaderboard table td{
+	padding: 1em 2em;
+}
 @-webkit-keyframes sliderMovementOne {
 	0% {
 		-webkit-transform: translateX(0);

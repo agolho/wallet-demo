@@ -1,7 +1,9 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import UnityComponent from "@/pages/unity";
 import {Button} from "react-bootstrap";
 import Scrollslider from "@/pages/scrollslider";
+import scrapeLeaderboard from "@/pages/scrapeleaderboard";
+import { formatDistanceToNow, parseISO } from 'date-fns';
 
 const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
 
@@ -31,6 +33,69 @@ const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
         'game-detail-assets/prizes/20USDC.png',
         'game-detail-assets/prizes/CommonBox.png'
     ];
+
+    const [leaderboard, setLeaderboard] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const url =
+                "https://lbexp.danqzq.games/html?publicKey=10d72d538cab474437b416bdd3c4c106037b1b918d65e11cad188be608633a9f&take=1000";
+            const data = await scrapeLeaderboard(url);
+            const processedData = processLeaderboardData(data);
+            setLeaderboard(processedData);
+        };
+
+        fetchData();
+    }, []);
+
+    function formatScore(milliseconds) {
+        milliseconds *= 0.001;
+        const ms = milliseconds % 1000;
+        const seconds = Math.floor((milliseconds / 1000) % 60);
+        const minutes = Math.floor((milliseconds / (1000 * 60)) % 60);
+
+        const formattedTime = [];
+
+        if (minutes > 0) {
+            formattedTime.push(`${minutes}:`);
+        }
+        if (seconds > 0) {
+            formattedTime.push(`${seconds}.`);
+        }
+        if (ms > 0) {
+            formattedTime.push(`${ms}`);
+        }
+
+        return formattedTime.join('');
+    }
+
+    function obfuscateUsername(username) {
+        if (!username || username.length <= 8) return username;
+        const prefix = username.slice(0, 5);
+        const suffix = username.slice(-3);
+        return `${prefix}...${suffix}`;
+    }
+
+    function processLeaderboardData(data) {
+        const leaderboardMap = {};
+
+        // Iterate over the data to find the lowest score for each unique username
+        data.forEach(item => {
+            const { username, score } = item;
+            if (!(username in leaderboardMap) || score < leaderboardMap[username].score) {
+                leaderboardMap[username] = item;
+            }
+        });
+
+        // Convert the map back to an array
+        const leaderboard = Object.values(leaderboardMap);
+
+        // Sort the leaderboard by rank (optional)
+        leaderboard.sort((a, b) => a.rank - b.rank);
+
+        return leaderboard;
+    }
+
 
     return (
         <div id="content-column" className="view">
@@ -103,6 +168,42 @@ const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
                     </div>
                 </div>
                 <Scrollslider imgSources={imgSources}></Scrollslider>
+
+                <div className="game-detail leaderboard">
+
+                <h2>Leaderboard</h2>
+                </div>
+                {/* Leaderboard */}
+                <div className="game-detail leaderboard">
+
+                    <div className="">
+                        {leaderboard.length > 0 ? (
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Username</th>
+                                    <th>Score</th>
+                                    <th>Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {leaderboard.map((item, index ) => (
+                                    <tr key={index}>
+                                        <td>{item.rank}</td>
+                                        <td>{obfuscateUsername(item.username)}</td>
+                                        <td>{formatScore(item.score)}</td>
+                                        <td>{formatDistanceToNow(parseISO(item.date))} ago</td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                        ) : (
+                            <p>Loading leaderboard...</p>
+                        )}
+                    </div>
+                </div>
+
                 <div className="game-detail">
 
                     <img src="images/plane-images/ss1.png" width={400} height={300}></img>
@@ -134,6 +235,7 @@ const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
                         <img className="" src="images/plane-images/ss4.png"></img>
                     </div>
                 </div>
+
 
             </div>
         </div>
