@@ -2,8 +2,9 @@ import React, {useEffect, useState} from "react";
 import UnityComponent from "@/pages/unity";
 import {Button} from "react-bootstrap";
 import Scrollslider from "@/pages/scrollslider";
-import scrapeLeaderboard from "@/pages/scrapeleaderboard";
 import { formatDistanceToNow, parseISO } from 'date-fns';
+import axios from 'axios';
+import * as cheerio from "cheerio";
 
 const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
 
@@ -34,50 +35,42 @@ const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
         'game-detail-assets/prizes/CommonBox.png'
     ];
 
-    const [leaderboard, setLeaderboard] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const url =
-                "https://lbexp.danqzq.games/html?publicKey=10d72d538cab474437b416bdd3c4c106037b1b918d65e11cad188be608633a9f&take=1000";
-            const data = await scrapeLeaderboard(url);
-            const processedData = processLeaderboardData(data);
-            setLeaderboard(processedData);
-        };
-
-        fetchData();
-    }, []);
-
-    function formatScore(milliseconds) {
-        milliseconds *= 0.001;
-        const ms = milliseconds % 1000;
-        const seconds = Math.floor((milliseconds / 1000) % 60);
-        const minutes = Math.floor((milliseconds / (1000 * 60)) % 60);
-
-        const formattedTime = [];
-
-        if (minutes > 0) {
-            formattedTime.push(`${minutes}:`);
-        }
-        if (seconds > 0) {
-            formattedTime.push(`${seconds}.`);
-        }
-        if (ms > 0) {
-            formattedTime.push(`${ms}`);
-        }
-
-        return formattedTime.join('');
+    // Leaderboard
+    interface LeaderboardEntry {
+        rank: number;
+        username: string;
+        score: number;
+        extra: string;
+        date: string;
     }
 
-    function obfuscateUsername(username) {
-        if (!username || username.length <= 8) return username;
-        const prefix = username.slice(0, 5);
-        const suffix = username.slice(-3);
-        return `${prefix}...${suffix}`;
+    async function scrapeLeaderboard(url: string): Promise<LeaderboardEntry[]> {
+        try {
+            const response = await axios.get(url);
+            const $ = cheerio.load(response.data);
+
+            const leaderboard: LeaderboardEntry[] = [];
+
+            $('tbody tr').each((index, element) => {
+                const rank = parseInt($(element).find('td').eq(0).text().trim());
+                const username = $(element).find('td').eq(1).text().trim();
+                const score = parseInt($(element).find('td').eq(2).text().trim());
+                const extra = $(element).find('td').eq(3).text().trim();
+                const date = $(element).find('td').eq(4).text().trim();
+
+                leaderboard.push({ rank, username, score, extra, date });
+            });
+
+            return leaderboard;
+        } catch (error) {
+            console.error('Error scraping data:', error);
+            return [];
+        }
     }
 
-    function processLeaderboardData(data) {
-        const leaderboardMap = {};
+    function processLeaderboardData(data: LeaderboardEntry[]): LeaderboardEntry[] {
+        const leaderboardMap: { [key: string]: LeaderboardEntry } = {};
 
         // Iterate over the data to find the lowest score for each unique username
         data.forEach(item => {
@@ -95,6 +88,56 @@ const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
 
         return leaderboard;
     }
+
+    const [leaderboard, setLeaderboard] = useState<any[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const url = "https://lbexp.danqzq.games/html?publicKey=10d72d538cab474437b416bdd3c4c106037b1b918d65e11cad188be608633a9f&take=1000";
+                const data = await scrapeLeaderboard(url);
+                if (data != null) {
+                    const processedData = processLeaderboardData(data);
+                    setLeaderboard(processedData);
+                }
+            } catch (error) {
+                console.error('Error fetching leaderboard:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+
+    function formatScore(milliseconds: number) {
+        milliseconds *= 0.001;
+        const ms = milliseconds % 1000;
+        const seconds = Math.floor((milliseconds / 1000) % 60);
+        const minutes = Math.floor((milliseconds / (1000 * 60)) % 60);
+
+        const formattedTime = [];
+
+        if (minutes > 0) {
+            formattedTime.push(`${minutes}m`);
+        }
+        if (seconds > 0 || minutes > 0) {
+            formattedTime.push(`${seconds}s`);
+        }
+        if (ms > 0 || seconds > 0 || minutes > 0) {
+            formattedTime.push(`${ms}ms`);
+        }
+
+        return formattedTime.join('');
+    }
+
+    function obfuscateUsername(username : string) {
+        if (!username || username.length <= 8) return username;
+        const prefix = username.slice(0, 5);
+        const suffix = username.slice(-3);
+        return `${prefix}...${suffix}`;
+    }
+
+
 
 
     return (
