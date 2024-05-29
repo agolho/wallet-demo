@@ -3,7 +3,7 @@ import {Button} from "react-bootstrap";
 import UnityComponent from "./unity";
 import Scrollslider from "@/pages/scrollslider";
 
-const SpeedyPaws = ({ isAllowed, setUnityInstance }: { isAllowed: boolean, setUnityInstance: any }) => {
+const SpeedyPaws = ({ isAllowed }: { isAllowed: boolean}) => {
     const [isGameVisible, setIsGameVisible] = useState(false);
 
     let gameIsActive =false;

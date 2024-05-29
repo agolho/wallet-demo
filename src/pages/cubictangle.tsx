@@ -3,7 +3,7 @@ import UnityComponent from "@/pages/unity";
 import {Button} from "react-bootstrap";
 import ScrollSlider from "@/pages/scrollslider";
 
-const CubicTangle = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnityInstance: any }) => {
+const CubicTangle = ({ isAllowed }: { isAllowed: boolean }) => {
     const [isGameVisible, setIsGameVisible] = useState(false);
     let gameIsActive = false;
     const handlePlayClick = () => {

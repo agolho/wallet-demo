@@ -3,7 +3,7 @@ import UnityComponent from "@/pages/unity";
 import {Button} from "react-bootstrap";
 import Scrollslider from "@/pages/scrollslider";
 
-const PawsomeTank = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnityInstance: any } ) => {
+const PawsomeTank = ({ isAllowed }: { isAllowed: boolean} ) => {
     const [isGameVisible, setIsGameVisible] = useState(false);
     let gameIsActive =false;
     const handlePlayClick = () => {

@@ -3,7 +3,7 @@ import UnityComponent from "@/pages/unity";
 import {Button} from "react-bootstrap";
 import Scrollslider from "@/pages/scrollslider";
 
-const FlyKitty = ({ isAllowed , setUnityInstance}: { isAllowed: boolean, setUnityInstance: any }) => {
+const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
 
 
     const [isGameVisible, setIsGameVisible] = useState(false);

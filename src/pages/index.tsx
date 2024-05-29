@@ -22,21 +22,12 @@ import { useRouter } from 'next/router';
 import PawsomeTank from "@/pages/pawsometank";
 import Ticketcounter from "@/pages/ticketcounter";
 
-import { collection, addDoc } from "firebase/firestore";
-import {initializeApp} from "@firebase/app";
-import {getFirestore} from "@firebase/firestore";
-import {getAuth, Auth} from "@firebase/auth";
-import { signIn, signOut, useSession } from 'next-auth/react'
 
-import {verifySignIn} from "@solana/wallet-standard-util";
-import {SolanaSignInInput} from "@solana/wallet-standard-features";
-import {Adapter} from "@solana/wallet-adapter-base";
 import WhitelistComponent from "@/pages/whitelist";
 import FreeStrayComponent from "@/pages/freestray";
-import {Connection, PublicKey} from "@solana/web3.js";
-import {undefined} from "zod";
-import {address} from "@trezor/utxo-lib";
+import {Connection, Keypair, PublicKey} from "@solana/web3.js";
 import {TOKEN_PROGRAM_ID} from "@solana/spl-token";
+import {keypairIdentity, Metaplex} from "@metaplex-foundation/js";
 
 export default function Home() {
 	// ROUTER
@@ -47,7 +38,6 @@ export default function Home() {
 	const handleLinkClick = async (link: string) => {
 		if ((window as any).globalUnityInstance) {
 			await new Promise<void>((resolve) => {
-				cleanupUnityInstance();
 				setTimeout(() => resolve(), 1000); // Adjust the timeout as needed
 			});
 		}
@@ -57,63 +47,65 @@ export default function Home() {
 	const renderPage = () => {
 		switch (activeLink) {
 			case "Homepage":
-				return <Homepage />;
+				return <Homepage/>;
 			case "Speedy Paws":
-				return <SpeedyPaws isAllowed={isAllowed} setUnityInstance={setUnityInstance} />;
+				return <SpeedyPaws isAllowed={isAllowed}/>;
 			case "Kitty Kaboom":
-				return <KittyKaboom isAllowed={isAllowed} setUnityInstance={setUnityInstance} />;
+				return <KittyKaboom isAllowed={isAllowed}/>;
 			case "Fly Kitty!":
-				return <FlyKitty isAllowed={isAllowed} setUnityInstance={setUnityInstance}  />;
+				return <FlyKitty isAllowed={isAllowed} />;
 			case "Cubic Tangle":
-				return <Cubictangle isAllowed={isAllowed} setUnityInstance={setUnityInstance}  />;
+				return <Cubictangle isAllowed={isAllowed} />;
 			case "Pawsome Tank":
-				return <PawsomeTank isAllowed={isAllowed} setUnityInstance={setUnityInstance} />;
+				return <PawsomeTank isAllowed={isAllowed} />;
 			default:
-				return <Homepage />;
+				return <Homepage/>;
 		}
 	};
 
 	// WALLET
-
-
-
-
 	const WalletMultiButtonDynamic = dynamic(
 		async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
-		{ ssr: false }
+		{ssr: false}
 	);
 
-	const { connection } = useConnection();
-	const [balance, setBalance] = useState<number>(0);
-	const address = "3JrbCVKzSevkW1CUrJtHNLiNa1zD8MXeKnVsyXQFcJBM";
-	const SignInDynamic = dynamic(async () =>
-		(await import('./SignIn')).SignIn, { ssr: false });
-
-
+	const {connection} = useConnection();
 	const [allowedWallets, setAllowedWallets] = useState<string[]>([]);
 	const [isAllowed, setIsAllowed] = useState(false);
 	const [toastShown, setToastShown] = useState(false);
-	const { publicKey } = useWallet();
+	const {publicKey} = useWallet();
 
+	interface NFT {
+		account: {
+			data: {
+				parsed: {
+					info: {
+						mint: string; // Assuming mint is a string, adjust as needed
+						// Add other properties here if needed
+					}
+				}
+			}
+		}
+		// Add other properties here if needed
+	}
 
 	// Solana web3 Querry
-
 	async function fetchTokenAccountsByOwner() {
 		try {
-			const response = await fetch('https://solana-mainnet.api.syndica.io/', {
+			const response = await fetch('https://solana-mainnet.api.syndica.io/api-token/5Lziijebr419MgBrAyxADJAHnEWPswzt58i79gnBiV8ArJNs1iSarC7GisoU4yFDeHfYC3GE6oD5pYw63d8CowVTLnw84PaEebfu9LUdH7SbJAwZvu3vrVKgYPHh19AeRUewRNZrGfz8QgZHeBuGn1gahKmTF6pz7AraRFiWtD5x92D2Jr7Rzp1Sh5gmuaKroacj3j9v7coB2SdRtGqaBf5rWgouNR5ANVjEjALD5Cw1H73ALncSMBXtqc64tdWwrKg38BcaMLGzidrbZZRcWWuPhxmpkvrAnFAsdi94c7nJM4d7F2ufrXWmkJkJ7PzpoF4SJqjVMo6EFGjJBVxQroTpDBDmcgWT96con1ynn9RHEzC8xKLw7TqqzcSHkC42t1HwD9PkupGhEALe8Fkf8X5wjk34vzuFVFYrR1orRdbCzn9JsSpBciJekkbmnEweaHJW4KcUhYuAtaGxWAbi8RHdbaW2RKxqmr844ECB8EKaqZPhJu8ztBVTwpBNxg1dGKeH5XKxSMMwGRGrDJC7vqoG', {
 				method: 'POST',
 				headers: {
-					"Content-Type": "application/json",
-					"X-Syndica-Api-Token": "2s53Y9XjuXWjz165ShK3iVwNeNoufmE9HwTVPprYJ2P49sEkNNntnRHMdDjLypn6mDwFRqpQsad2QwKMRfgLEuSX3chj7XVtkNhBF4vMwoimkjVB3xAEMt2fcNwVoUCsu4q6RCQS3AdEGqdtPCre4aPjhcXnUT4wYNB1ummt4z7FWUScvxCiP7ypSHE6Nux9nrmEMVimQtsiaHhxHKN7efBnefYTzNyqJ3B6c4YbuuRqcDY4cSZVYk4H7V4MRYqXfU4xHCWssyWqheuqM9GApPHrAU6SsonkkF2w5bUMG5sVnvgzuTNnK89QsMBhuw2igtbMzaw9jXnX2DpGhEZvBkLFPia4eZZtRpRXVu8zfpaRP4cz4w3ARByYVBrXM39RGj9M11zVNYn7f6nnsL8kXHkmu4RwdVvEDqUy8Qj1v6XR9ZxPWofZVCvgmr39wyzmvuw8ag3gYQhBKHNB7S6mR3dxF3zoHrBywCVZtdBzv9bKWbdNwzEgBGU5RUqHq"
+					'Content-Type': 'text/json'
 				},
 				body: JSON.stringify({
 					jsonrpc: '2.0',
 					id: 1,
 					method: 'getTokenAccountsByOwner',
 					params: [
-						'4Qkev8aNZcqFNSRhQzwyLMFSsi94jHqE8WNVTJzTP99F',
+						publicKey,
 						{
-							mint: '3wyAj7Rt1TWVPZVteFJPLa26JmLvdb1CAKEFZm3NY75E'
+							programId: TOKEN_PROGRAM_ID
+
 						},
 						{
 							encoding: 'jsonParsed'
@@ -122,18 +114,30 @@ export default function Home() {
 				})
 			});
 
-			const data = await response.json();
-			console.log('Response:', data);
-			// Process the response data here
+			const responseBody = await response.text();
+			const responseData = JSON.parse(responseBody);
+			const nftArray = responseData.result.value;
+
+			// Filter NFTs whose mint address matches any address in mintaddresses.txt
+			const matchedNFTs = nftArray.filter((nft:NFT) => mintAddresses.includes(nft.account.data.parsed.info.mint));
+			const allowedLogin = matchedNFTs.length > 0;
+			if(allowedLogin){
+				setIsAllowed(true);
+				//console.log('Matched NFTs:', matchedNFTs, "User allowed:", allowedLogin);
+			}
 		} catch (error) {
 			console.error('Error:', error);
 		}
 	}
 
-
-
-
-
+	const [mintAddresses, setMintAddresses] = useState<string[]>([]);
+	useEffect(() => {
+		// Fetch whitelist from whitelist.txt file
+		fetch('/mintadresses.txt') // Assuming txt is in your public directory
+			.then(response => response.text())
+			.then(data => setMintAddresses(data.split('\n').map(line => line.trim())))
+			.catch(error => console.error('Error fetching whitelist from file:', error));
+	}, []);
 
 	const savePublicKeyToLocalStorage = ({WalletID}: { WalletID: any }) => {
 		localStorage.setItem('publicKey', WalletID);
@@ -142,7 +146,7 @@ export default function Home() {
 	useEffect(() => {
 		if (publicKey) {
 			savePublicKeyToLocalStorage({WalletID: publicKey.toString()});
-			fetchTokenAccountsByOwner().then(r => {});
+			fetchTokenAccountsByOwner();
 		}
 	}, [publicKey]);
 
@@ -166,22 +170,6 @@ export default function Home() {
 		}
 	}, [publicKey, allowedWallets]);
 
-	// UNITY
-
-	const [unityInstance, setUnityInstance] = useState<any>(null);
-	let globalUnityInstance = null;
-	const cleanupUnityInstance = () => {
-		console.log('Cleaning up Unity instance');
-
-		if((window as any).globalUnityInstance == null) {
-			console.warn("unity instance is null");
-		}
-		else {
-			(window as any).globalUnityInstance.Quit();
-			console.log('Unity instance cleaned up successfully');
-			(window as any).globalUnityInstance = null;
-		}
-	};
 
 	return (
 		<>
