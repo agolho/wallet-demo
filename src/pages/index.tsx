@@ -16,8 +16,6 @@ import FlyKitty from "@/pages/flykitty";
 import Cubictangle from "@/pages/cubictangle";
 import dynamic from "next/dynamic";
 import { useConnection, useWallet  } from "@solana/wallet-adapter-react";
-import * as solanaWeb3 from "@solana/web3.js"
-import NftEyez from "@/pages/nfteyez";
 import { useRouter } from 'next/router';
 import PawsomeTank from "@/pages/pawsometank";
 import Ticketcounter from "@/pages/ticketcounter";

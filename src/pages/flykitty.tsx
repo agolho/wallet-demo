@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import UnityComponent from "@/pages/unity";
 import {Button} from "react-bootstrap";
 import Scrollslider from "@/pages/scrollslider";
 import { formatDistanceToNow, parseISO } from 'date-fns';
+import moment from "moment-timezone";
 import axios from 'axios';
 import * as cheerio from "cheerio";
 
@@ -83,15 +83,22 @@ const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
         // Convert the map back to an array
         const leaderboard = Object.values(leaderboardMap);
 
-        // Sort the leaderboard by rank (optional)
-        leaderboard.sort((a, b) => a.rank - b.rank);
+        // Sort the leaderboard by score in ascending order
+        leaderboard.sort((a, b) => a.score - b.score);
+
+        // Assign ranks based on the sorted order
+        leaderboard.forEach((item, index) => {
+            item.rank = index + 1; // Rank starts from 1
+        });
 
         return leaderboard;
     }
 
+
     const [leaderboard, setLeaderboard] = useState<any[]>([]);
 
     useEffect(() => {
+        moment.tz.names();
         const fetchData = async () => {
             try {
                 const url = "https://lbexp.danqzq.games/html?publicKey=10d72d538cab474437b416bdd3c4c106037b1b918d65e11cad188be608633a9f&take=1000";
@@ -137,7 +144,12 @@ const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
         return `${prefix}...${suffix}`;
     }
 
+    const timeZone = 'Etc/GMT'; // Replace with your desired time zone, e.g., 'America/New_York'
+    function convertToTimeZone(dateString: string, timeZone: string) {
+        return moment.tz(dateString, timeZone).toDate();
+    }
 
+// Use this in your component
 
 
     return (
@@ -236,7 +248,7 @@ const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
                                         <td>{item.rank}</td>
                                         <td>{obfuscateUsername(item.username)}</td>
                                         <td>{formatScore(item.score)}</td>
-                                        <td>{formatDistanceToNow(parseISO(item.date))} ago</td>
+                                        <td>{formatDistanceToNow(convertToTimeZone(item.date, timeZone))} ago</td>
                                     </tr>
                                 ))}
                                 </tbody>
