@@ -91,7 +91,7 @@ const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
             item.rank = index + 1; // Rank starts from 1
         });
 
-        return leaderboard;
+        return leaderboard.slice(0, 10);
     }
 
 
