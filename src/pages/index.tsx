@@ -118,7 +118,7 @@ export default function Home() {
 			const responseBody = await response.text();
 			const responseData = JSON.parse(responseBody);
 			const nftArray = responseData.result.value;
-
+			console.log(responseBody);
 			// Filter NFTs whose mint address matches any address in mintaddresses.txt
 			const matchedNFTs = nftArray.filter((nft:NFT) => mintAddresses.includes(nft.account.data.parsed.info.mint));
 			const allowedLogin = matchedNFTs.length > 0;
