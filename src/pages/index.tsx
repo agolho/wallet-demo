@@ -19,6 +19,7 @@ import { useConnection, useWallet  } from "@solana/wallet-adapter-react";
 import { useRouter } from 'next/router';
 import PawsomeTank from "@/pages/pawsometank";
 import Ticketcounter from "@/pages/ticketcounter";
+import { Analytics } from '@vercel/analytics/react'
 
 
 import WhitelistComponent from "@/pages/whitelist";
@@ -92,12 +93,11 @@ export default function Home() {
 
 	async function fetchTokenAccountsByOwner() {
 		try {
-			const response = await fetch('https://solana-mainnet.api.syndica.io/' ,{
+			const response = await fetch('https://solana-mainnet.api.syndica.io/api-token/3CwntV9Qn3m6c1T1VrJdsYmVw4BPed6jgZ3xTfYfKVVkpYar6Nfrr1vrWzVMJpRdqyiRQ6idruCr8mhD975Y8mqkurvFq4iFHtb9Tc2JnLrZNSTzU6dNAZgvcFavvUZAyGqk7CJFhgE5wmEjm3EQ4zj5ApM3iQFdcJ3UW7uZqRC6rkiQsa1nPaBuzjKV7NxEqk5tn2bVJ2YCYG5zofS5eSFqw6xhp1cjYnXHMciuNpHuz8GsXvP1XCGJoWTxCye2HadAZmpBMGa8XrQ45aNb12DWt2RTNXA9eb64eLJbDPZVHjVNDjd9BpLHzKoV6ZAz2dgYMZHzdUUQBBvHvqD5DWp9Jg63QGiJEqEvABcJGzq4yE1uRfWBCHHGHsdTi2mzU13JxdPTS3ZBCMLxFrnWzdonvDSZbvpieQZjLiVHDCcAXhYpFTPzLh5vW1VpGpgaVVuHkNeWAvetSAVbH4WcFWYjzWviuHCSSiWxifpvecJa7HhXvCVRYQnYqncXe', {
 				method: 'POST',
 				mode: "no-cors",
 				headers: {
-					'Content-Type': 'text/json',
-					"X-Syndica-Api-Token": '3CwntV9Qn3m6c1T1VrJdsYmVw4BPed6jgZ3xTfYfKVVkpYar6Nfrr1vrWzVMJpRdqyiRQ6idruCr8mhD975Y8mqkurvFq4iFHtb9Tc2JnLrZNSTzU6dNAZgvcFavvUZAyGqk7CJFhgE5wmEjm3EQ4zj5ApM3iQFdcJ3UW7uZqRC6rkiQsa1nPaBuzjKV7NxEqk5tn2bVJ2YCYG5zofS5eSFqw6xhp1cjYnXHMciuNpHuz8GsXvP1XCGJoWTxCye2HadAZmpBMGa8XrQ45aNb12DWt2RTNXA9eb64eLJbDPZVHjVNDjd9BpLHzKoV6ZAz2dgYMZHzdUUQBBvHvqD5DWp9Jg63QGiJEqEvABcJGzq4yE1uRfWBCHHGHsdTi2mzU13JxdPTS3ZBCMLxFrnWzdonvDSZbvpieQZjLiVHDCcAXhYpFTPzLh5vW1VpGpgaVVuHkNeWAvetSAVbH4WcFWYjzWviuHCSSiWxifpvecJa7HhXvCVRYQnYqncXe" ',
+					'Content-Type': 'text/json'
 				},
 				body: JSON.stringify({
 					jsonrpc: '2.0',
@@ -163,6 +163,7 @@ export default function Home() {
 
 	return (
 		<>
+			<Analytics/>
 			<SnackbarProvider
 				Components={{
 
