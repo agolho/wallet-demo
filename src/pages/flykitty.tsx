@@ -101,7 +101,7 @@ const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
         moment.tz.names();
         const fetchData = async () => {
             try {
-                const url = "https://lbexp.danqzq.games/html?publicKey=10d72d538cab474437b416bdd3c4c106037b1b918d65e11cad188be608633a9f&take=1000";
+                const url = "https://lbexp.danqzq.games/html?publicKey=32fcbc0ab18b9e8f87dbc6d09bb1e2928da199a12ff18af391c2662e3d0dcf11&take=1000";
                 const data = await scrapeLeaderboard(url);
                 if (data != null) {
                     const processedData = processLeaderboardData(data);
