@@ -11,7 +11,7 @@ const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
 
     const [isGameVisible, setIsGameVisible] = useState(false);
 
-    isAllowed = true;
+    //isAllowed = true;
     let gameIsActive =false;
     const handlePlayClick = () => {
         if(gameIsActive) return;
