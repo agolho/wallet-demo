@@ -184,7 +184,7 @@ const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
                                 </>
                             ) : (
                                 <div className={"siteMessage"}>
-                                    You need <a href={"https://magiceden.io/launchpad/stray_cat_tribe"}>SCT NFT</a>  to Play.
+                                    You need <a href={"https://magiceden.io/marketplace/stray_cat_tribe"}>SCT NFT</a>  to Play.
                                 </div>
                             )}
                         </div>
