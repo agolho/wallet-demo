@@ -36,9 +36,9 @@ const ServerStatus: React.FC<ServerStatusProps> = ({ url }) => {
     return (
         <div>
             {isUp ? (
-                <p>Server is Up</p>
+                <p>✅ Server is Up</p>
             ) : (
-                <p>Server is down</p>
+                <p>❌ Server is down</p>
             )}
         </div>
     );
