@@ -265,7 +265,7 @@ const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
 
                 </div>
                 <div className="game-detail leaderboard">
-                    <ServerStatus url="https://server.danqzq.games" />
+                    <ServerStatus url="https://lcv2-server.danqzq.games" />
                 </div>
                 <div className="game-detail">
 
