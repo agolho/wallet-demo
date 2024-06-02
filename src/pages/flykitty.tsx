@@ -5,6 +5,7 @@ import { formatDistanceToNow, parseISO } from 'date-fns';
 import moment from "moment-timezone";
 import axios from 'axios';
 import * as cheerio from "cheerio";
+import ServerStatus from "@/components/ServerStatus";
 
 const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
 
@@ -227,13 +228,17 @@ const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
                 <div className="game-detail leaderboard">
 
                 <h2>Leaderboard</h2>
+
                 </div>
+
                 {/* Leaderboard */}
+
                 <div className="game-detail leaderboard">
 
                     <div className="">
                         {leaderboard.length > 0 ? (
                             <table>
+
                                 <thead>
                                 <tr>
                                     <th></th>
@@ -257,8 +262,11 @@ const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
                             <p>Loading leaderboard...</p>
                         )}
                     </div>
-                </div>
 
+                </div>
+                <div className="game-detail leaderboard">
+                    <ServerStatus url="https://server.danqzq.games" />
+                </div>
                 <div className="game-detail">
 
                     <img src="images/plane-images/ss1.png" width={400} height={300}></img>
