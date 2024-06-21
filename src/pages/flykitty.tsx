@@ -225,48 +225,7 @@ const FlyKitty = ({ isAllowed }: { isAllowed: boolean }) => {
                 </div>
                 <Scrollslider imgSources={imgSources}></Scrollslider>
 
-                <div className="game-detail leaderboard">
 
-                <h2>Leaderboard</h2>
-
-                </div>
-
-                {/* Leaderboard */}
-
-                <div className="game-detail leaderboard">
-
-                    <div className="">
-                        {leaderboard.length > 0 ? (
-                            <table>
-
-                                <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Username</th>
-                                    <th>Score</th>
-                                    <th>Date</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {leaderboard.map((item, index ) => (
-                                    <tr key={index}>
-                                        <td>{item.rank}</td>
-                                        <td>{obfuscateUsername(item.username)}</td>
-                                        <td>{formatScore(item.score)}</td>
-                                        <td>{formatDistanceToNow(convertToTimeZone(item.date, timeZone))} ago</td>
-                                    </tr>
-                                ))}
-                                </tbody>
-                            </table>
-                        ) : (
-                            <p>Loading leaderboard...</p>
-                        )}
-                    </div>
-
-                </div>
-                <div className="game-detail leaderboard">
-                    <ServerStatus url="https://lcv2-server.danqzq.games" />
-                </div>
                 <div className="game-detail">
 
                     <img src="images/plane-images/ss1.png" width={400} height={300}></img>
